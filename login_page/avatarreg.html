@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="Shared Image.png" type="image/icon type">
+    <title>Red Room Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .avatar-option {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .avatar-option.selected {
+            border-color: red;
+        }
+
+        #avatarSelection img {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <form id="RegistrationForm">
+        <center>
+            <img style="margin-left: 50px;" src="Shared Image.png" width="150px" height="50px">
+            <table>
+                <tr>
+                    <th style="color: white;">Email:</th>
+                    <td>
+                        <input type="text" placeholder="Enter email" id="email" /><br />
+                        <span id="emailError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color: white;">Username:</th>
+                    <td>
+                        <input type="text" placeholder="Enter username" id="username" /><br />
+                        <span id="nameError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color:white;">Password:</th>
+                    <td>
+                        <input type="password" placeholder="Enter password" id="password" /><br />
+                        <span id="passError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color:white;">Select Avatar:</th>
+                    <td>
+                        <div id="avatarSelection">
+                            <img src="a1.png" alt="Avatar 1" class="avatar-option" onclick="selectAvatar('a1.png')">
+                            <img src="a2.png" alt="Avatar 2" class="avatar-option" onclick="selectAvatar('a2.png')">
+                            <img src="a3.png" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('a3.png')">
+                            <img src="a4.png" alt="Avatar 4" class="avatar-option" onclick="selectAvatar('a4.png')">
+                        </div>
+                        <input type="hidden" id="selectedAvatar" />
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="button">Register</button>
+            <p style="color: white;">Already a user? <a href="val.html" class="login-link">Login</a></p>
+        </center>
+    </form>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("RegistrationForm");
+            form.addEventListener("submit", validate);
+        });
+
+        function selectAvatar(avatar) {
+            document.getElementById("selectedAvatar").value = avatar;
+            // Add a visual effect to show the selected avatar
+            document.querySelectorAll(".avatar-option").forEach(img => img.classList.remove("selected"));
+            document.querySelector(`img[src="${avatar}"]`).classList.add("selected");
+        }
+
+        function validate(event) {
+            event.preventDefault();
+        
+            let email = document.getElementById("email").value;
+            let username = document.getElementById("username").value; 
+            let password = document.getElementById("password").value;
+            let avatar = document.getElementById("selectedAvatar").value;
+            let emailError = document.getElementById("emailError");
+            let nameError = document.getElementById("nameError");
+            let passError = document.getElementById("passError");
+            let valid = true;
+    
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+            emailError.textContent = "";
+            nameError.textContent = "";
+            passError.textContent = "";
+
+            if (!avatar) {
+                alert("Please select an avatar.");
+                valid = false;
+            }
+
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty";
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = "Invalid email format";
+                valid = false;
+            }
+
+            if (username === "") {
+                nameError.textContent = "Username cannot be empty.";
+                valid = false;
+            }
+
+            if (password === "") {
+                passError.textContent = "Password cannot be empty.";
+                valid = false;
+            }
+
+            if (valid) {
+                const users = JSON.parse(localStorage.getItem("users")) || [];
+                const usernameExists = users.some(user => user.username === username);
+
+                if (usernameExists) {
+                    nameError.textContent = "Username already exists.";
+                    return;
+                }
+
+                users.push({ email, username, password, avatar });
+                localStorage.setItem("users", JSON.stringify(users));
+
+                alert("Registration successful! Redirecting to login page...");
+                window.location.href = "val.html";
+            }
+        }
+    </script>
+</body>
+</html>

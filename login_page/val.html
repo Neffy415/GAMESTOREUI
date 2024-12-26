@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="lol.png" type="image/icon type">
+    <title>Login to the Red Room</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="preloader">
+        <img src="red door.gif" alt="Loading...">
+    </div>
+    <div id="content" style="display: none;">
+        <form id="LoginForm" autocomplete="on">
+        <center>
+            <img style="margin-left: 50px;" src="Shared Image.png" width="150px" height="50px">
+            <table>
+                <tr>
+                    <th style="color: white;">Username:</th>
+                    <td>
+                        <input type="text" placeholder="Enter username" id="username" required autocomplete="username" /><br />
+                        <span id="nameError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color:white;">Password:</th>
+                    <td>
+                        <input type="password" placeholder="Enter password" id="password" required autocomplete="current-password" /><br />
+                        <span id="passError" class="error"></span>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="button">Login</button>
+            <p style="color: white;"> New user? <a href="avatarreg.html" class="login-link"> Register </a></p>
+        </center>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginForm = document.getElementById("LoginForm");
+
+            loginForm.onsubmit = function(event) {
+                event.preventDefault();
+                
+                let nameError = document.getElementById("nameError");
+                let passError = document.getElementById("passError");
+                
+                nameError.textContent = "";
+                passError.textContent = "";
+                
+                const users = JSON.parse(localStorage.getItem("users")) || []; // Get users
+
+                const enteredUser = document.getElementById("username").value;
+                const enteredPassword = document.getElementById("password").value;
+
+                // Check if the entered username and password match any user
+                const user = users.find(user => user.username === enteredUser && user.password === enteredPassword);
+
+                if (user) {
+                    alert("Login successful!");
+                    localStorage.setItem("loggedInUser", enteredUser); // Store logged-in username
+                    window.location.href = "../Character Selection/ch.html";
+                } else if (!users.some(user => user.username === enteredUser)) {
+                    nameError.textContent = "Invalid Username.";
+                } else {
+                    passError.textContent = "Invalid Password";
+                }
+            };
+        });
+        
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }, 3000);
+        });
+    </script>
+    
+</body>
+</html>

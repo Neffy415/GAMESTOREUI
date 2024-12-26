@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>User Profile - Game Codes</title>
+</head>
+
+<style>
+body{
+
+    
+}
+    .gamecode{
+
+        color:red;
+    }
+</style>
+<body>
+	<h2>Your Purchased Game Codes</h2>
+	<div class="gamecode" id="idlist"></div>
+	<script>
+		// Display game codes for the logged-in user
+		document.addEventListener('DOMContentLoaded', () => {
+			const username = localStorage.getItem('loggedInUser');
+			const userCodes = JSON.parse(localStorage.getItem('userCodes')) || {};
+			const codes = userCodes[username] || [];
+			
+			const codesList = document.getElementById("idlist");
+			if (codes.length > 0) {
+				codesList.innerHTML = `<ul>${codes.map(code => `<li>${code}</li>`).join('')}</ul>`;
+			} else {
+				codesList.textContent = "You have no purchased game codes.";
+			}
+		});
+	</script>
+</body>
+</html>

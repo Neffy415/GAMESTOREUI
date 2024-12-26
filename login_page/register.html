@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="Shared Image.png" type="image/icon type">
+    <title>Red Room Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="RegistrationForm">
+        <center>
+            <img style="margin-left: 50px;" src="Shared Image.png" width="150px" height="50px">
+            <table>
+                <tr>
+                    <th style="color: white;">Email:</th>
+                    <td>
+                        <input type="text" placeholder="Enter email" id="email" /><br />
+                        <span id="emailError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color: white;">Username:</th>
+                    <td>
+                        <input type="text" placeholder="Enter username" id="username" /><br />
+                        <span id="nameError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="color:white;">Password:</th>
+                    <td>
+                        <input type="password" placeholder="Enter password" id="password" /><br />
+                        <span id="passError" class="error"></span>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="button">Register</button>
+            <p style="color: white;">Already a user? <a href="val.html" class="login-link">Login</a></p>
+        </center>
+    </form>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("RegistrationForm");
+            form.addEventListener("submit", validate);
+        });
+
+        function validate(event) {
+            event.preventDefault();
+        
+            let email = document.getElementById("email").value;
+            let username = document.getElementById("username").value; 
+            let password = document.getElementById("password").value;
+            let emailError = document.getElementById("emailError");
+            let nameError = document.getElementById("nameError");
+            let passError = document.getElementById("passError");
+            let valid = true;
+    
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+            emailError.textContent = "";
+            nameError.textContent = "";
+            passError.textContent = "";
+    
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty";
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = "Invalid email format";
+                valid = false;
+            }
+
+            if (username === "") {
+                nameError.textContent = "Username cannot be empty.";
+                valid = false;
+            }
+
+            if (password === "") {
+                passError.textContent = "Password cannot be empty.";
+                valid = false;
+            }
+
+            if (valid) {
+                // Retrieve existing users from localStorage
+                const users = JSON.parse(localStorage.getItem("users")) || [];
+                // Check for duplicate username
+                const usernameExists = users.some(user => user.username === username);
+
+                if (usernameExists) {
+                    nameError.textContent = "Username already exists.";
+                    return; // Stop the registration
+                }
+
+                // Add new user
+                users.push({ email, username, password });
+                localStorage.setItem("users", JSON.stringify(users)); // Save updated users
+
+                // Generate a game code (for example purposes)
+                const gameCode = generateGameCode(); // Call your game code generation function
+                downloadGameCode(username, gameCode); // Download the game code for the user
+
+                alert("Registration successful! Redirecting to login page...");
+                window.location.href = "val.html";
+            }
+        }
+
+        function generateGameCode() {
+            // Example function to generate a random game code
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let gameCode = "";
+            for (let i = 0; i < 6; i++) {
+                gameCode += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return gameCode;
+        }
+
+        function downloadGameCode(username, gameCode) {
+            const data = `Username: ${username}\nGame Code: ${gameCode}\n\n`;
+            const blob = new Blob([data], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "userGameCodes.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

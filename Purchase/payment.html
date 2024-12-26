@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="lol.jpeg" type="image/icon type">
+	<title>Red Room - Payment</title>
+	<link rel="stylesheet" href="style.css">
+	<script>
+		// Function to generate and save a random game code after purchase
+		function generateGameCode() {
+			const code = 'GAME-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+			const username = localStorage.getItem('loggedInUser');
+			let userCodes = JSON.parse(localStorage.getItem('userCodes')) || {};
+
+			if (!userCodes[username]) {
+				userCodes[username] = [];
+			}
+			userCodes[username].push(code);
+			localStorage.setItem('userCodes', JSON.stringify(userCodes));
+
+			// Create a text file with the user's name and all game codes
+			let fileContent = `Username: ${username}\nGame Codes:\n`;
+			userCodes[username].forEach((c) => {
+				fileContent += `${c}\n`;
+			});
+
+			const blob = new Blob([fileContent], { type: 'text/plain' });
+			const url = URL.createObjectURL(blob);
+
+			// Create a link element to download the file
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `${username}_game_codes.txt`; // Updated filename to indicate multiple codes
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url); // Clean up
+
+			alert(`Thank you for your purchase. Your game code is: ${code}`);
+			document.getElementById("popupOverlay").style.display = "flex";
+		}
+	</script>
+
+	<style>
+		/* General Styles */
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #1e1e2f;
+			color: #ffffff;
+			margin: 0;
+			padding: 0;
+		}
+
+		/* Header and Navbar */
+		.header {
+			background-color: black;
+			padding: 20px;
+			text-align: center;
+			position: relative;
+		}
+
+		.header img {
+			width: 200px;
+		}
+
+		.ico {
+			position: absolute;
+			right: 20px;
+			top: 20px;
+		}
+
+		#button2 {
+			background-color: #e3434d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		#button2:hover {
+			background-color: #d13242;
+			transition: 0.3s;
+		}
+
+		.navbar {
+			display: flex;
+			justify-content: center;
+			background-color: #333;
+		}
+
+		.navbar a {
+			color: white;
+			padding: 14px 20px;
+			text-decoration: none;
+		}
+
+		.navbar a:hover {
+			background-color: #575757;
+			transition: 0.3s;
+		}
+
+		/* Payment Form */
+		.container {
+			width: 80%;
+			margin: auto;
+			background-color: black;
+			padding: 30px;
+			border-radius: 10px;
+			margin-top: 20px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+			animation: fadeIn 1s ease;
+		}
+
+		.container h2 {
+			text-align: center;
+			color: #e3434d;
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+
+		table {
+			width: 100%;
+			color: #e4e4e4;
+		}
+
+		input[type="text"],
+		input[type="radio"],
+		button {
+			font-size: 16px;
+			padding: 10px;
+			width: 80%;
+			border: 1px solid #555;
+			border-radius: 5px;
+			background-color: #333;
+			color: #fff;
+			margin-bottom: 15px;
+			transition: 0.3s;
+		}
+
+		button {
+			background-color: #e3434d;
+			width: 50%;
+			margin: 20px auto;
+			display: block;
+		}
+
+		button:hover {
+			background-color: #d13242;
+			transform: scale(1.05);
+			transition: 0.3s;
+		}
+
+		/* Popup Overlay */
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.8);
+			justify-content: center;
+			align-items: center;
+			animation: fadeIn 0.5s ease;
+		}
+
+		.popup {
+			background-color: #2a2a3d;
+			padding: 20px;
+			text-align: center;
+			border-radius: 10px;
+			width: 300px;
+			animation: scaleIn 0.5s ease;
+		}
+
+		.pop a {
+			text-decoration: none;
+		}
+
+		.pop button {
+			text-decoration: none;
+		}
+
+		/* Animations */
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+
+		@keyframes scaleIn {
+			from { transform: scale(0.5); }
+			to { transform: scale(1); }
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<center><img src="dark.jpeg" alt="GHOST STORE"></center>
+		<div class="ico">
+			<button id="button2" onclick="window.location.href='../login_page/val.html';">Log Out</button>
+			<img id="pro" src="pro.png" alt="profile">
+		</div>
+	</div>
+	<div class="navbar">
+		<a href="#">Store</a>
+		<a href="#">Upcoming</a>
+		<a href="../Character Selection/ch.html">Character Selection</a>
+		<a href="#">Search</a>
+		<a href="#">Contact</a>
+	</div>
+	<center><h3>ENTER THE RED ROOM: UNLEASH YOUR PASSION!</h3></center>
+	<div class="container">
+		<h2><center>PAYMENT DETAILS</center></h2>
+		<form action="game.php" method="POST">
+		<table style="color: #e3434d; font-size:18px; width:100%; text-align:center;">
+			<tr><td> Name : </td><td><input type="text" id="name" name="name"></td></tr>
+			<tr><td> Card Number : </td><td><input type="text" id="cardno" name="cardno"></td></tr>
+			<tr><td> Card Name : </td><td><input type="text" id="cardname" name="cardname"></td></tr>
+			<tr><td> Expiration : </td><td><input type="text" id="expiration" name="expiration"></td></tr>
+			<tr><td> CVV : </td><td><input type="text" id="cvv" name="cvv"></td></tr>
+		
+			<tr><td colspan=2><button onclick="generateGameCode()" type="submit">BUY</button></td></tr>
+		</table>
+		</form>
+	</div>
+	<div class="overlay" id="popupOverlay">
+		<div class="popup">
+			<p style="color:#e3434d;">Thank you for your purchase. Check your game code in your profile.</p>
+			<a href="../Home/Gaming Store.html"><button style="background-color:#e3434d; text-decoration:none;">Continue Browsing</button></a>
+		</div>
+	</div>
+</body>
+</html>
