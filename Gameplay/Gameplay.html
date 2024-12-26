@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1.0">
+	<link rel="icon" href="lol.jpeg" type="image/icon type">
+	<title>Red Room</title>
+	<link rel="stylesheet" href="style.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const backgroundImage = localStorage.getItem('selectedCharacterBackground');
+    if (backgroundImage) {
+        // Apply the selected character's background
+        document.body.style.backgroundImage = backgroundImage;
+    } else {
+        // Apply the default background
+        document.body.style.backgroundImage = 'url("bg.jpg")';
+    }
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+});
+
+</script>
+<script>
+	document.body.style.zoom = "90%";
+</script>
+</head>
+<div class="header">
+	<center><img src="dark.jpeg" alt="GHOST STORE"></center>
+<div class="ico">
+<button id="button2" onclick="window.location.href='../login_page/val.html';">Log Out</button>
+<img id="pro" src="pro.png" alt="profile">
+</div>
+</div>
+<div class="navbar">
+	<a href="../Home/Gaming store.html">Store</a>
+	<a href="../Gameplay/Gameplay.html">Gameplay</a>
+	<a href="../Character Selection/ch.html">Character Selection</a>
+	<a href="../Search/search.html">Search</a>
+	<a href="../about/about.html" id="contact">About Us</a>
+   </div>
+	<center><h3>ENTER THE RED ROOM: UNLEASH YOUR PASSION!</h3></center>
+
+<body>
+	<div class="container">
+		<br>
+		<h2 style="color:#e3434d; text-align: center;">GAMEPLAY</h2>
+		<br>
+		<br>
+		<center><iframe width="560" height="315" src="https://www.youtube.com/embed/SCZxf9OSHeM?si=tww-kPNSQfQGIyTL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		<br><br><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/PhIj9TSBUFE?si=S7YrfegmJp_OOucV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		<br><br><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/QyUrQbHJMUY?si=HyZPvUOKcM2o46-8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
+	</div>
+</body>
+</html>
+
+

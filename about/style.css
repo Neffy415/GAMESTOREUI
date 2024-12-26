@@ -1,0 +1,232 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+#contact{
+	background-color: #e3434d;
+}
+body{
+	background-image: url('red.jpg');
+	background-size: cover;
+	overflow: auto;
+}
+ .header {
+            display: flex;
+            align-items: center;
+            padding: 9px;
+            justify-content: space-between;
+            background-color: #000000;
+            color: white;
+        }
+	.header button{
+		width: 100px;
+		height: 35px;
+		border-radius: 8px;
+		align-items: center;
+		border: none;
+		cursor: pointer;
+		margin: 0 5px;
+		border: 1px solid #000;
+		transition: 0.3s;
+		left: 80%;
+	}
+	.header .ico button{
+		background-color: black;
+}
+        .header img {
+	    height:60x;
+            width: 200px;
+	    left: 50%;
+        }	.header button img{
+		color: #000000;
+		width: 20px;
+		left: 90%;
+	   }
+
+        .header h1 {
+            margin: 0;
+            text-align: center;
+            flex: 1;
+        }
+#button2{
+	background-color: #e3434d;
+	left: 20px;
+}
+#button2:hover{
+	background-color: red;
+}
+    
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        .navbar a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+.container{
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 1000px;
+	height: 600px;
+	background: #000000;
+	box-shadow: 0 30px 50px #000000;
+}
+h3{
+	color: #e3434d;
+	background-color: #000000;
+}
+.us {
+
+		z-index: 8;
+		margin-top:30px;
+		margin-bottom:30px;
+
+
+           }
+
+
+h1{
+	
+	color:red;
+	
+	text-align:center;
+	font-family: "Rubik Wet Paint", system-ui;
+  font-weight: 400;
+  font-style: normal;
+
+
+
+
+}
+
+
+.banner{
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.banner .slider{
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 10%;
+    left: calc(50% - 100px);
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    animation: autoRun 20s linear infinite;
+    z-index: 2;
+}
+@keyframes autoRun{
+    from{
+        transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+    }to{
+        transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+    }
+}
+
+.banner .slider .item{
+    position: absolute;
+    inset: 0 0 0 0;
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(550px);
+margin-bottom:30px;
+overflow: hidden;
+border-radius: 5 px;
+    
+}
+.banner .slider .item img{
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+    border-radius: 5 px;
+
+   
+}
+
+.banner .slider .item:hover img {
+    transform: scale(1.1); /* Zoom in slightly on hover */
+}
+
+/* Shining effect */
+.banner .slider .item::after {
+    content: '';
+    position: absolute;
+    top: 60%; /* Move the shine lower on the image */
+    left: -75%; /* Start the shine effect outside the left boundary */
+    width: 50%;
+    height: 40%; /* Adjust height to make the shine smaller */
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    transition: transform 0.3s ease; /* Smooth transition for the shine effect */
+    transform: skewX(-30deg);
+}
+
+.banner .slider .item:hover::after {
+    transform: translateX(200%) skewX(-30deg); /* Moves the shine across the image */
+    transition: transform 0.5s ease; /* Timing for the shine effect on hover */
+}
+
+@media screen and (max-width: px) {
+    .banner .slider{
+        width: 160px;
+        height: 200px;
+        left: calc(50% - 80px);
+    }
+    .banner .slider .item{
+        transform: 
+            rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+            translateZ(300px);
+    }
+    .banner .content h1{
+        text-align: center;
+        width: 100%;
+        text-shadow: 0 10px 20px #000;
+        font-size: 7em;
+    }
+    .banner .content .author{
+        color: #fff;
+        padding: 20px;
+        text-shadow: 0 10px 20px #000;
+        z-index: 2;
+        max-width: unset;
+        width: 100%;
+        text-align: center;
+        padding: 0 30px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .banner .slider{
+        width: 100px;
+        height: 150px;
+        left: calc(50% - 50px);
+    }
+    .banner .slider .item{
+        transform: 
+            rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+            translateZ(180px);
+    }
+    
+}
+#pro{
+	position: absolute;
+	height:50px;
+        width: 50px;
+	left: 1500px;
+	top: 25px;
+}

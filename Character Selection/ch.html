@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1.0">
+	<link rel="icon" href="lol.jpeg" type="image/icon type">
+	<title>Red Room</title>
+	<link rel="stylesheet" href="style.css">
+
+<script>
+	document.body.style.zoom = "90%";
+</script>
+</style>
+
+</head>
+<div class="header">
+    <center><img src="dark.jpeg" alt="GHOST STORE"></center>
+<div class="ico">
+<button id="button2" onclick="window.location.href='../login_page/val.html';">Log Out</button>
+<img id="pro" src="pro.png" alt="profile">
+</div>
+</div>
+<div class="navbar">
+ <a href="../Home/Gaming store.html">Store</a>
+ <a href="../Gameplay/Gameplay.html">Gameplay</a>
+ <a href="../Character Selection/ch.html">Character Selection</a>
+ <a href="../Search/search.html">Search</a>
+ <a href="../about/about.html" id="contact">About Us</a>
+</div>
+	<center><h3>ENTER THE RED ROOM: UNLEASH YOUR PASSION!</h3></center>
+<div class="container">
+    <!-- Character boxes -->
+    <div class="character-box" onclick="toggleCharacter(this, 'ch.jpg')">
+        <div class="character-name"><h2>SHADOW</h2></div>
+        <div class="character-content">
+            <h4>Nightmare of the living</h4>
+	    <br>
+            <p>He comes when your nightmare takes hold,
+ a silent shadow at your back. He follows you,
+ step by step, never closer, never further,
+ until you turn and face the fear that binds 
+you—only then does he vanish with the dawn.</p>
+	    <br>
+            <button onclick="selectCharacter('character1')"> SELECT </button>
+        </div>
+    </div>
+
+    <div class="character-box" onclick="toggleCharacter(this, 'reyna.jpeg')">
+        <div class="character-name"><h2>CYBER-HUNTER</h2></div>
+        <div class="character-content">
+            <h4>Alien Hunter</h4>
+	    <br>
+            <p>He emerges from the shadows, a figure clad in black, his head masked and mysterious. Insane weaponry bristles from his form as he hunts with precision. The alien hunter strikes swiftly, leaving nothing but silence in his wake, always ready for the next target.</p>
+	    <br>
+            <button onclick="selectCharacter('character2')"> SELECT </button>
+        </div>
+    </div>
+
+    <div class="character-box" onclick="toggleCharacter(this, 'warrior.jpeg')">
+        <div class="character-name"><h2>ECLIPSE</h2></div>
+        <div class="character-content">
+            <h4>The Shadow Walker</h4>
+	    <br>
+            <p>He arrives when night falls, a fleeting shadow just beyond your sight. A silent guardian, he melts into darkness, unseen yet ever-present. The wicked tremble at his approach, feeling his watchful gaze. In an instant, he strikes, delivering justice before vanishing with the dawn.</p>
+	    <br>
+            <button onclick="selectCharacter('character3')"> SELECT </button>
+        </div>
+    </div>
+
+    <div class="character-box" onclick="toggleCharacter(this, 'cerebrus.jpeg')">
+        <div class="character-name"><h2>CEREBRUS</h2></div>
+        <div class="character-content">
+            <h4>The Devil's Servant</h4>
+	    <br>
+            <p>He slips into your mind with a mere touch, born again of the devil’s blood. The Devil’s Servant, he moves with unstoppable strength, a vessel for darkness. Unknowingly, he brings death to those he encounters, vanishing as whispers of fear linger in his wake.</p>
+	    <br>
+            <button onclick="selectCharacter('character4')"> SELECT </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCharacter(element, image) {
+        // Collapse any other active boxes first
+        document.querySelectorAll('.character-box').forEach(box => {
+            if (box !== element) {
+                box.classList.remove('active');
+            }
+        });
+
+        // Toggle the clicked box
+        element.classList.toggle('active');
+
+        // Set background image for the active character box
+        if (element.classList.contains('active')) {
+            element.style.backgroundImage = `url(${image})`;
+        } else {
+            element.style.backgroundImage = 'none'; // Remove background when not active
+        }
+    }
+  function selectCharacter(character) {
+            let backgroundImageUrl;
+
+            // Set the background image URL based on the selected character
+            if (character === 'character1') {
+                backgroundImageUrl = 'url("ch.jpg")';
+            } else if (character === 'character2') {
+                backgroundImageUrl = 'url("reyna.jpeg")';
+            } else if (character === 'character3') {
+                backgroundImageUrl = 'url("warrior.jpeg")';
+            } else if (character === 'character4') {
+                backgroundImageUrl = 'url("cerebrus.jpeg")';
+            }
+
+            // Save the background image URL to localStorage
+            localStorage.setItem('selectedCharacterBackground', backgroundImageUrl);
+        }
+</script>
+
+
+<body>
+
+</body>
+</html>
+
+
