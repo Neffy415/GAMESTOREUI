@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />	
+
+	<link rel="icon" href="logo.jpeg" type="image/icon type">                      
+	<title>Ghost Store</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="header">
+       		<center><img src="dark.jpeg" alt="GHOST STORE"></center>
+	<div class="ico">
+		<button id="button2">Sign in</button>
+
+		<button id="button1" type="submit">
+			<img src="sun.png" alt="Mode">
+		</button>
+		</div>
+    	</div>
+	<div class="navbar">
+        	<a href="#">Store</a>
+        	<a href="#">Upcoming</a>
+        	<a href="#">Character Selection</a>
+        	<a href="#">Mega Sale!</a>
+        	<a href="#">Contact</a>
+   	</div>
+	
+               <div class="filter-button" onmouseover="showAlphabet()" onmouseout="hideAlphabet()">
+        	    Filter by Alphabet
+        	    <div class="alphabet-list" id="alphabetList">
+        	        <span onclick="filterGames('A')">A</span>
+        	        <span onclick="filterGames('B')">B</span>
+        	        <span onclick="filterGames('C')">C</span>
+        	        <span onclick="filterGames('D')">D</span>
+        	        <span onclick="filterGames('E')">E</span>
+        	        <span onclick="filterGames('F')">F</span>
+        	        <span onclick="filterGames('G')">G</span>
+        	        <span onclick="filterGames('H')">H</span>
+        	        <span onclick="filterGames('I')">I</span>
+        	        <span onclick="filterGames('J')">J</span>
+        	        <span onclick="filterGames('K')">K</span>
+        	        <span onclick="filterGames('L')">L</span>
+        	        <span onclick="filterGames('M')">M</span>
+        	        <span onclick="filterGames('N')">N</span>
+        	        <span onclick="filterGames('O')">O</span>
+        	        <span onclick="filterGames('P')">P</span>
+        	        <span onclick="filterGames('Q')">Q</span>
+        	        <span onclick="filterGames('R')">R</span>
+        	        <span onclick="filterGames('S')">S</span>
+        	        <span onclick="filterGames('T')">T</span>
+        	        <span onclick="filterGames('U')">U</span>
+        	        <span onclick="filterGames('V')">V</span>
+        	        <span onclick="filterGames('W')">W</span>
+        	        <span onclick="filterGames('X')">X</span>
+        	        <span onclick="filterGames('Y')">Y</span>
+        	        <span onclick="filterGames('Z')">Z</span>
+        	    </div>
+        	</div>
+                 
+               <div class="searchb">
+		<input type="text" id="search" placeholder="Search..." style="border-color: #000000">
+	</div>
+	<div class="container">
+
+		<div class="slider">
+
+			<div class="item" data-title="GTA 5"  data-category="Action" style="background-image: url(img1.png);">
+				<div class="content">
+				 <div class="description-wrapper">
+					<div class="name">GTA 5</div>
+					<div class="des">Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. </div>
+					<button>See More</button>
+				 </div>
+				</div>
+			</div>
+			<div class="item" data-title="MAFIA II"  data-category="Adventure" style="background-image: url(img2.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">MAFIA II</div>
+					<div class="des">Mafia II is a 2010 action-adventure game developed by 2K Czech and published by 2K.</div>
+					<button>See More</button>
+				  </div>
+				</div>
+			</div>
+			<div class="item" data-title="Sleeping Dogs" data-category="Action" style="background-image: url(img3.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Sleeping Dogs</div>
+					<div class="des">Sleeping Dogs is a 2012 action-adventure game developed by United Front Games and published by Square Enix.</div>
+					<button>See More</button>
+				  </div>
+				</div>
+			</div>
+			<div class="item"  data-title="Cyberpunk 2077" data-category="RPG" style="background-image: url(img4.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Cyberpunk 2077</div>
+					<div class="des">Cyberpunk 2077 is a 2020 action role-playing game developed by the Polish studio CD Projekt Red, and published by CD Projekt, and based on Mike Pondsmith's Cyberpunk tabletop game series.</div>
+					<button>See More</button>
+				  </div>
+				</div>
+			</div>
+
+			<div class="item" data-title="Watch Dogs" data-category="Tech" style="background-image: url(img5.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Watch Dogs</div>
+					<div class="des">Watch Dogs is an action-adventure video game franchise published by Ubisoft, and developed primarily by its Montreal and Toronto studios using the Disrupt game engine.</div>
+					<button>See More</button>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<div class="button">
+			<button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+			<button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+		</div>
+	</div>
+<script>
+        function showAlphabet() {
+            document.getElementById('alphabetList').style.display = 'block';
+        }
+
+        function hideAlphabet() {
+            document.getElementById('alphabetList').style.display = 'none';
+        }
+
+        function filterGames(letter) {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const title = item.getAttribute('data-title');
+                if (title.startsWith(letter)) {
+                    item.style.display = 'block'; // Show matching item
+                } else {
+                    item.style.display = 'none'; // Hide non-matching item
+                }
+            });
+            hideAlphabet(); // Hide the alphabet list after filtering
+        }
+    </script>
+    <script src="app.js"></script>
+
+
+</body>
+</html>     

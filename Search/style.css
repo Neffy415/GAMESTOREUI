@@ -1,0 +1,128 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	background-image: url('bg.jpg');
+	background-size: cover;
+	overflow: auto;
+}
+ .header {
+            display: flex;
+            align-items: center;
+            padding: 9px;
+            justify-content: space-between;
+            background-color: #000000;
+            color: white;
+        }
+	.header button{
+		width: 100px;
+		height: 35px;
+		border-radius: 8px;
+		align-items: center;
+		border: none;
+		cursor: pointer;
+		margin: 0 5px;
+		border: 1px solid #000;
+		transition: 0.3s;
+		left: 80%;
+	}
+	.header .ico button{
+		background-color: black;
+}
+        .header img {
+	    height:60x;
+            width: 200px;
+	    left: 50%;
+        }	.header button img{
+		color: #000000;
+		width: 20px;
+		left: 90%;
+	   }
+
+        .header h1 {
+            margin: 0;
+            text-align: center;
+            flex: 1;
+        }
+#button2{
+	background-color: #e3434d;
+	left: 20px;
+}
+#button2:hover{
+	background-color: red;
+}
+    
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        .navbar a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+.searchb{
+	position: absolute;
+	top: 20%;
+	left: 85%;
+
+}
+.searchb input{
+	
+	height: 18px;
+}
+.container{
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 1000px;
+	height: 600px;
+	background: #000000;
+	box-shadow: 0 30px 50px #000000;
+}
+h3{
+	color: #e3434d;
+	background-color: #000000;
+}
+#pro{
+	position: absolute;
+	height:50px;
+        width: 50px;
+	left: 1500px;
+	top: 25px;
+}
+#dropdownMenu {
+    display: none;
+    position: absolute;
+    top: 75px; /* Adjust based on the profile image position */
+    left: 1450px; /* Adjust to align with your profile image */
+    background-color: #000000;
+    color: red;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1000;
+    border: 1px solid #575757; 
+}
+
+#dropdownMenu a {
+    color: red;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#dropdownMenu a:hover {
+    background-color: #575757;
+}

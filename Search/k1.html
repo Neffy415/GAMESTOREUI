@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="lol.jpeg" type="image/icon type"> <!-- Favicon -->
+    <title>Red Room</title>
+    <link rel="stylesheet" href="style.css">
+ <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;        
+            background-color: #000; /* Black background for an epic feel */
+            color: #ffffff; /* White text */
+            text-align: center;
+            position: relative; /* Position for sort buttons */
+        }
+
+        /* Header styles */
+        header {
+            background-color: #b22222; /* Firebrick red */
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+
+        /* Header title */
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        /* Navigation styles */
+        .navbar {
+            background-color: #444; /* Dark gray */
+            padding: 10px 0;
+        }
+
+        /* Navigation links */
+        .navbar a {
+            color: #ffffff; /* White text for links */
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        .navbar a:hover {
+            color: #ffcc00; /* Gold color on hover */
+        }
+
+        /* Sort buttons styles */
+        .sort-buttons {
+            position: absolute; /* Position in the top left corner */
+            left: 10px;
+            top: calc(50px + 50px); /* Adjusted to be further below the nav bar */
+            z-index: 1000; /* Ensure it sits above other content */
+        }
+
+        .sort-buttons button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #b22222; /* Firebrick red */
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold; /* Make text bold */
+            transition: background-color 0.3s; /* Smooth color transition */
+        }
+
+        .sort-buttons button:hover {
+            background-color: #ff4500; /* Orange-red on hover */
+        }
+
+        /* Game card styles */
+        .game-card {
+            display: inline-block;
+            background-color: #3b4045; /* Dark card background */
+            border-radius: 10px;
+            margin: 10px;
+            padding: 15px;
+            width: 180px; /* Width of the game card */
+            transition: transform 0.2s; /* Smooth scaling effect */
+            overflow: hidden; /* Ensure content doesn't overflow */
+        }
+
+        .game-card:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        .game-card img {
+            width: 150px; /* Fixed width for all images */
+            height: 150px; /* Fixed height for all images */
+            object-fit: cover; /* Ensure images cover the space without distortion */
+            border-radius: 10px; /* Rounded corners for images */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
+        }
+
+        .game-card h3 {
+            font-size: 1.1em;
+            margin: 10px 0 0;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #b22222; /* Firebrick red */
+            padding: 20px;
+        }
+
+        footer p {
+            color: #fff; /* White text for the footer */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .navbar a {
+                display: block; /* Stack navigation links on smaller screens */
+                margin: 5px 0;
+            }
+
+            .game-card {
+                width: 100%; /* Full width on smaller screens */
+            }
+
+            .sort-buttons {
+                left: 5px; /* Adjust for smaller screens */
+                top: calc(50px + 50px); /* Adjust to remain below the nav */
+            }
+        }
+    
+/* Alphabet Filter Buttons Container */
+.alphabet-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allows buttons to wrap to the next line if space is limited */
+    justify-content: center; /* Centers the buttons horizontally */
+    margin: 20px 0; /* Adds space above and below the buttons */
+}
+
+/* Individual Button Styles */
+.alphabet-buttons button {
+    background-color: #ff0000; /* Red background for buttons */
+    color: #ffffff; /* White text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside the buttons */
+    margin: 5px; /* Space between buttons */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Button Hover Effect */
+.alphabet-buttons button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Active Button Style */
+.alphabet-buttons button.active {
+    background-color: #990000; /* Darker red for active button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for active button */
+}
+.alphabet-buttons button {
+    background-color: black; /* Default background color */
+    color: white;           /* Default text color */
+    border: none;          /* Remove default border */
+    padding: 10px 15px;    /* Add padding */
+    margin: 5px;           /* Add some margin */
+    border-radius: 5px;    /* Rounded corners */
+    cursor: pointer;        /* Change cursor to pointer on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.alphabet-buttons button:hover {
+    background-color: black; /* Background color on hover */
+    color: red;                /* Text color on hover */
+}
+.game-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-card {
+  position: relative;
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+}
+
+.game-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.game-card:hover .tooltip {
+  display: block;
+}
+
+
+</style>
+
+</head>
+<body>
+
+    <div class="header">
+        <center><img src="dark.jpeg" alt="GHOST STORE"></center>
+        <div class="ico">
+            <button id="button2">Sign in</button>
+        </div>
+    </div>
+    <div class="navbar">
+        <a href="#">Store</a>
+        <a href="#">Upcoming</a>
+        <a href="#">Character Selection</a>
+        <a href="#">Mega Sale!</a>
+        <a href="#">Contact</a>
+    </div>
+    <center><h3>ENTER THE RED ROOM: UNLEASH YOUR PASSION!</h3></center>
+
+    <div class="sort-buttons">
+        <button onclick="sortGames('asc')">Sort A-Z</button>
+        <button onclick="sortGames('desc')">Sort Z-A</button>
+        <button onclick="showAllGames()">All</button> <!-- All Button -->
+    </div>
+    
+    <!-- Alphabet Filter Buttons -->
+    <div class="alphabet-buttons">
+        <button onclick="filterByLetter('A')">A</button>
+        <button onclick="filterByLetter('B')">B</button>
+        <button onclick="filterByLetter('C')">C</button>
+        <button onclick="filterByLetter('D')">D</button>
+        <button onclick="filterByLetter('E')">E</button>
+        <button onclick="filterByLetter('F')">F</button>
+        <button onclick="filterByLetter('G')">G</button>
+        <button onclick="filterByLetter('H')">H</button>
+        <button onclick="filterByLetter('I')">I</button>
+        <button onclick="filterByLetter('J')">J</button>
+        <button onclick="filterByLetter('K')">K</button>
+        <button onclick="filterByLetter('L')">L</button>
+        <button onclick="filterByLetter('M')">M</button>
+        <button onclick="filterByLetter('N')">N</button>
+        <button onclick="filterByLetter('O')">O</button>
+        <button onclick="filterByLetter('P')">P</button>
+        <button onclick="filterByLetter('Q')">Q</button>
+        <button onclick="filterByLetter('R')">R</button>
+        <button onclick="filterByLetter('S')">S</button>
+        <button onclick="filterByLetter('T')">T</button>
+        <button onclick="filterByLetter('U')">U</button>
+        <button onclick="filterByLetter('V')">V</button>
+        <button onclick="filterByLetter('W')">W</button>
+        <button onclick="filterByLetter('X')">X</button>
+        <button onclick="filterByLetter('Y')">Y</button>
+        <button onclick="filterByLetter('Z')">Z</button>
+    </div>
+
+    <div id="game-container">
+<div class="game-container">
+  <div class="game-card" data-name="A Plague Tale: Innocence"><img src="1.jpg" alt="A Plague Tale: Innocence"><h3>A Plague Tale: Innocence</h3></div>
+<div class="game-card" data-name="Among Us"><img src="2.jpg" alt="Among Us"><h3>Among Us</h3></div>
+<div class="game-card" data-name="Assassin's Creed Odyssey"><img src="3.jpg" alt="Assassin's Creed Odyssey"><h3>Assassin's Creed Odyssey</h3></div>
+<div class="game-card" data-name="Battlefield V"><img src="4.jpg" alt="Battlefield V"><h3>Battlefield V</h3></div>
+<div class="game-card" data-name="Bloodborne"><img src="5.jpg" alt="Bloodborne"><h3>Bloodborne</h3></div>
+<div class="game-card" data-name="Call of Duty: Warzone"><img src="6.jpg" alt="Call of Duty: Warzone"><h3>Call of Duty: Warzone</h3></div>
+<div class="game-card" data-name="Celeste"><img src="7.jpg" alt="Celeste"><h3>Celeste</h3></div>
+<div class="game-card" data-name="Control"><img src="8.jpg" alt="Control"><h3>Control</h3></div>
+<div class="game-card" data-name="Cuphead"><img src="9.jpg" alt="Cuphead"><h3>Cuphead</h3></div>
+<div class="game-card" data-name="Dark Souls II"><img src="10.jpg" alt="Dark Souls II"><h3>Dark Souls II</h3></div>
+<div class="game-card" data-name="Death Stranding"><img src="11.jpg" alt="Death Stranding"><h3>Death Stranding</h3></div>
+<div class="game-card" data-name="Destiny 2"><img src="12.jpg" alt="Destiny 2"><h3>Destiny 2</h3></div>
+<div class="game-card" data-name="Doom Eternal"><img src="13.jpg" alt="Doom Eternal"><h3>Doom Eternal</h3></div>
+<div class="game-card" data-name="Final Fantasy VII Remake"><img src="14.jpg" alt="Final Fantasy VII Remake"><h3>Final Fantasy VII Remake</h3></div>
+<div class="game-card" data-name="Ghost of Tsushima"><img src="15.jpg" alt="Ghost of Tsushima"><h3>Ghost of Tsushima</h3></div>
+<div class="game-card" data-name="God of War (2018)"><img src="16.jpg" alt="God of War (2018)"><h3>God of War (2018)</h3></div>
+<div class="game-card" data-name="Hades"><img src="17.jpg" alt="Hades"><h3>Hades</h3></div>
+<div class="game-card" data-name="Hollow Knight"><img src="18.jpg" alt="Hollow Knight"><h3>Hollow Knight</h3></div>
+<div class="game-card" data-name="Horizon Zero Dawn"><img src="19.jpg" alt="Horizon Zero Dawn"><h3>Horizon Zero Dawn</h3></div>
+<div class="game-card" data-name="Hyper Light Drifter"><img src="20.jpg" alt="Hyper Light Drifter"><h3>Hyper Light Drifter</h3></div>
+<div class="game-card" data-name="Just Cause 4"><img src="21.jpg" alt="Just Cause 4"><h3>Just Cause 4</h3></div>
+<div class="game-card" data-name="League of Legends"><img src="22.jpg" alt="League of Legends"><h3>League of Legends</h3></div>
+<div class="game-card" data-name="Life is Strange: True Colors"><img src="23.jpg" alt="Life is Strange: True Colors"><h3>Life is Strange: True Colors</h3></div>
+<div class="game-card" data-name="Little Nightmares II"><img src="24.jpg" alt="Little Nightmares II"><h3>Little Nightmares II</h3></div>
+<div class="game-card" data-name="Madden NFL 21"><img src="25.jpg" alt="Madden NFL 21"><h3>Madden NFL 21</h3></div>
+<div class="game-card" data-name="Marvel's Avengers"><img src="26.jpg" alt="Marvel's Avengers"><h3>Marvel's Avengers</h3></div>
+<div class="game-card" data-name="Monster Hunter: World"><img src="27.jpg" alt="Monster Hunter: World"><h3>Monster Hunter: World</h3></div>
+<div class="game-card" data-name="Need for Speed: Heat"><img src="28.jpg" alt="Need for Speed: Heat"><h3>Need for Speed: Heat</h3></div>
+<div class="game-card" data-name="No Man's Sky"><img src="29.jpg" alt="No Man's Sky"><h3>No Man's Sky</h3></div>
+<div class="game-card" data-name="Overwatch"><img src="30.jpg" alt="Overwatch"><h3>Overwatch</h3></div>
+<div class="game-card" data-name="Persona 5"><img src="31.jpg" alt="Persona 5"><h3>Persona 5</h3></div>
+<div class="game-card" data-name="Phasmophobia"><img src="32.jpg" alt="Phasmophobia"><h3>Phasmophobia</h3></div>
+<div class="game-card" data-name="Rainbow Six Siege"><img src="34.jpg" alt="Rainbow Six Siege"><h3>Rainbow Six Siege</h3></div>
+<div class="game-card" data-name="Red Dead Redemption 2"><img src="35.jpg" alt="Red Dead Redemption 2"><h3>Red Dead Redemption 2</h3></div>
+<div class="game-card" data-name="Resident Evil Village"><img src="36.jpg" alt="Resident Evil Village"><h3>Resident Evil Village</h3></div>
+<div class="game-card" data-name="Rocket League"><img src="37.jpg" alt="Rocket League"><h3>Rocket League</h3></div>
+<div class="game-card" data-name="Sekiro: Shadows Die Twice"><img src="38.jpg" alt="Sekiro: Shadows Die Twice"><h3>Sekiro: Shadows Die Twice</h3></div>
+<div class="game-card" data-name="The Elder Scrolls V: Skyrim"><img src="39.jpg" alt="The Elder Scrolls V: Skyrim"><h3>The Elder Scrolls V: Skyrim</h3></div>
+<div class="game-card" data-name="The Last of Us Part II"><img src="40.jpg" alt="The Last of Us Part II"><h3>The Last of Us Part II</h3></div>
+<div class="game-card" data-name="The Witcher 3: Wild Hunt"><img src="41.jpg" alt="The Witcher 3: Wild Hunt"><h3>The Witcher 3: Wild Hunt</h3></div>
+<div class="game-card" data-name="Tom Clancy's The Division 2"><img src="42.jpg" alt="Tom Clancy's The Division 2"><h3>Tom Clancy's The Division 2</h3></div>
+<div class="game-card" data-name="Assassin's Creed Valhalla"><img src="43.jpg" alt="Assassin's Creed Valhalla"><h3>Assassin's Creed Valhalla</h3></div>
+<div class="game-card" data-name="Valorant"><img src="44.jpg" alt="Valorant"><h3>Valorant</h3></div>
+<div class="game-card" data-name="Watch Dogs: Legion"><img src="45.jpg" alt="Watch Dogs: Legion"><h3>Watch Dogs: Legion</h3></div>
+<div class="game-card" data-name="World of Warcraft"><img src="46.jpg" alt="World of Warcraft"><h3>World of Warcraft</h3></div>
+<div class="game-card" data-name="Wreckfest"><img src="47.jpg" alt="Wreckfest"><h3>Wreckfest</h3></div>
+<div class="game-card" data-name="XCOM 2"><img src="48.jpg" alt="XCOM 2"><h3>XCOM 2</h3></div>
+<div class="game-card" data-name="Yakuza: Like a Dragon"><img src="49.jpg" alt="Yakuza: Like a Dragon"><h3>Yakuza: Like a Dragon</h3></div>
+<div class="game-card" data-name="Yonder: The Cloud Catcher Chronicles"><img src="50.jpg" alt="Yonder: The Cloud Catcher Chronicles"><h3>Yonder: The Cloud Catcher Chronicles</h3></div>
+<div class="game-card" data-name="Zelda: Breath of the Wild"><img src="51.jpg" alt="Zelda: Breath of the Wild"><h3>Zelda: Breath of the Wild</h3></div>
+<div class="game-card" data-name="Animal Crossing: New Horizons"><img src="52.jpg" alt="Animal Crossing: New Horizons"><h3>Animal Crossing: New Horizons</h3></div>
+<div class="game-card" data-name="Bloodstained: Ritual of the Night"><img src="53.jpg" alt="Bloodstained: Ritual of the Night"><h3>Bloodstained: Ritual of the Night</h3></div>
+<div class="game-card" data-name="Castle Crashers Remastered"><img src="54.jpg" alt="Castle Crashers Remastered"><h3>Castle Crashers Remastered</h3></div>
+<div class="game-card" data-name="Cuphead: Delicious Last Course"><img src="55.jpg" alt="Cuphead: Delicious Last Course"><h3>Cuphead: Delicious Last Course</h3></div>
+<div class="game-card" data-name="Cyberpunk 2077"><img src="56.jpg" alt="Cyberpunk 2077"><h3>Cyberpunk 2077</h3></div>
+<div class="game-card" data-name="Darkest Dungeon"><img src="57.jpg" alt="Darkest Dungeon"><h3>Darkest Dungeon</h3></div>
+<div class="game-card" data-name="Diablo IV"><img src="58.jpg" alt="Diablo IV"><h3>Diablo IV</h3></div>
+<div class="game-card" data-name="Elden Ring"><img src="59.jpg" alt="Elden Ring"><h3>Elden Ring</h3></div>
+<div class="game-card" data-name="Fall Guys"><img src="60.jpg" alt="Fall Guys"><h3>Fall Guys</h3></div>
+<div class="game-card" data-name="Fifa 22"><img src="61.jpg" alt="Fifa 22"><h3>Fifa 22</h3></div>
+<div class="game-card" data-name="Fortnite"><img src="62.jpg" alt="Fortnite"><h3>Fortnite</h3></div>
+<div class="game-card" data-name="Gears 5"><img src="63.jpg" alt="Gears 5"><h3>Gears 5</h3></div>
+<div class="game-card" data-name="Ghost of Tsushima: Director's Cut"><img src="64.jpg" alt="Ghost of Tsushima: Director's Cut"><h3>Ghost of Tsushima: Director's Cut</h3></div>
+<div class="game-card" data-name="Gran Turismo 7"><img src="65.jpg" alt="Gran Turismo 7"><h3>Gran Turismo 7</h3></div>
+<div class="game-card" data-name="Hollow Knight: Silksong"><img src="66.jpg" alt="Hollow Knight: Silksong"><h3>Hollow Knight: Silksong</h3></div>
+<div class="game-card" data-name="Hyper Scape"><img src="67.jpg" alt="Hyper Scape"><h3>Hyper Scape</h3></div>
+<div class="game-card" data-name="It Takes Two"><img src="68.jpg" alt="It Takes Two"><h3>It Takes Two</h3></div>
+<div class="game-card" data-name="Little Nightmares"><img src="69.jpg" alt="Little Nightmares"><h3>Little Nightmares</h3></div>
+<div class="game-card" data-name="Mortal Kombat 11"><img src="70.jpg" alt="Mortal Kombat 11"><h3>Mortal Kombat 11</h3></div>
+<div class="game-card" data-name="NBA 2K21"><img src="71.jpg" alt="NBA 2K21"><h3>NBA 2K21</h3></div>
+<div class="game-card" data-name="Outlast 2"><img src="72.jpg" alt="Outlast 2"><h3>Outlast 2</h3></div>
+<div class="game-card" data-name="Persona 4 Golden"><img src="73.jpg" alt="Persona 4 Golden"><h3>Persona 4 Golden</h3></div>
+<div class="game-card" data-name="Planet Coaster"><img src="74.jpg" alt="Planet Coaster"><h3>Planet Coaster</h3></div>
+<div class="game-card" data-name="Sea of Thieves"><img src="75.jpg" alt="Sea of Thieves"><h3>Sea of Thieves</h3></div>
+<div class="game-card" data-name="Shadow of the Tomb Raider"><img src="76.jpg" alt="Shadow of the Tomb Raider"><h3>Shadow of the Tomb Raider</h3></div>
+<div class="game-card" data-name="Sonic Mania"><img src="77.jpg" alt="Sonic Mania"><h3>Sonic Mania</h3></div>
+<div class="game-card" data-name="Spelunky 2"><img src="78.jpg" alt="Spelunky 2"><h3>Spelunky 2</h3></div>
+<div class="game-card" data-name="Spyro Reignited Trilogy"><img src="79.jpg" alt="Spyro Reignited Trilogy"><h3>Spyro Reignited Trilogy</h3></div>
+<div class="game-card" data-name="Super Mario Odyssey"><img src="81.jpg" alt="Super Mario Odyssey"><h3>Super Mario Odyssey</h3></div>
+<div class="game-card" data-name="Temtem"><img src="82.jpg" alt="Temtem"><h3>Temtem</h3></div>
+<div class="game-card" data-name="The Binding of Isaac: Repentance"><img src="83.jpg" alt="The Binding of Isaac: Repentance"><h3>The Binding of Isaac: Repentance</h3></div>
+<div class="game-card" data-name="The Outer Worlds"><img src="85.jpg" alt="The Outer Worlds"><h3>The Outer Worlds</h3></div>
+<div class="game-card" data-name="The Walking Dead: The Telltale Series"><img src="86.jpg" alt="The Walking Dead: The Telltale Series"><h3>The Walking Dead: The Telltale Series</h3></div>
+<div class="game-card" data-name="Tomb Raider (2013)"><img src="87.jpg" alt="Tomb Raider (2013)"><h3>Tomb Raider (2013)</h3></div>
+<div class="game-card" data-name="Halo Infinite"><img src="88.jpg" alt="Halo Infinite"><h3>Halo Infinite</h3></div>
+<div class="game-card" data-name="Resident Evil 4 Remake"><img src="89.jpg" alt="Resident Evil 4 Remake"><h3>Resident Evil 4 Remake</h3></div>
+<div class="game-card" data-name="Sifu"><img src="90.jpg" alt="Sifu"><h3>Sifu</h3></div>
+<div class="game-card" data-name="Star Wars Jedi: Fallen Order"><img src="91.jpg" alt="Star Wars Jedi: Fallen Order"><h3>Star Wars Jedi: Fallen Order</h3></div>
+<div class="game-card" data-name="Final Fantasy XVI"><img src="92.jpg" alt="Final Fantasy XVI"><h3>Final Fantasy XVI</h3></div>
+<div class="game-card" data-name="Street Fighter V"><img src="93.jpg" alt="Street Fighter V"><h3>Street Fighter V</h3></div>
+<div class="game-card" data-name="Final Fantasy VII Rebirth"><img src="94.jpg" alt="Final Fantasy VII Rebirth"><h3>Final Fantasy VII Rebirth</h3></div>
+<div class="game-card" data-name="Dragon Quest XI"><img src="95.jpg" alt="Dragon Quest XI"><h3>Dragon Quest XI</h3></div>
+<div class="game-card" data-name="Dying Light: Stay Human"><img src="96.jpg" alt="Dying Light: Stay Human"><h3>Dying Light: Stay Human</h3></div>
+<div class="game-card" data-name="Elden Ring: Shadow of the Erdtree"><img src="97.jpg" alt="Elden Ring: Shadow of the Erdtree"><h3>Elden Ring: Shadow of the Erdtree</h3></div>
+<div class="game-card" data-name="Assassin's Creed Mirage"><img src="98.jpg" alt="Assassin's Creed Mirage"><h3>Assassin's Creed Mirage</h3></div>
+<div class="game-card" data-name="Ghostrunner"><img src="99.jpg" alt="Ghostrunner"><h3>Ghostrunner</h3></div>
+<div class="game-card" data-name="Tales of Symphonia Remastered"><img src="100.jpg" alt="Tales of Symphonia Remastered"><h3>Tales of Symphonia Remastered</h3></div>
+<div class="game-card" data-name="Hitler"><img src="101.jpg" alt="Hitler"><h3>Adolf Hitler</h3></div>
+<div class="game-card" data-name="Alan Wake 2"><img src="102.jpg" alt="Alan Wake 2"><h3>Alan Wake 2</h3></div>
+<div class="game-card" data-name="Bayonetta 3"><img src="103.jpg" alt="Bayonetta 3"><h3>Bayonetta 3</h3></div>
+<div class="game-card" data-name="Dead Space Remake"><img src="104.jpg" alt="Dead Space Remake"><h3>Dead Space Remake</h3></div>
+<div class="game-card" data-name="Dragon Age: Inquisition"><img src="105.jpg" alt="Dragon Age: Inquisition"><h3>Dragon Age: Inquisition</h3></div>
+<div class="game-card" data-name="Fable"><img src="106.jpg" alt="Fable"><h3>Fable</h3></div>
+<div class="game-card" data-name="Far Cry 6"><img src="107.jpg" alt="Far Cry 6"><h3>Far Cry 6</h3></div>
+<div class="game-card" data-name="Fire Emblem Engage"><img src="108.jpg" alt="Fire Emblem Engage"><h3>Fire Emblem Engage</h3></div>
+<div class="game-card" data-name="Gotham Knights"><img src="109.jpg" alt="Gotham Knights"><h3>Gotham Knights</h3></div>
+<div class="game-card" data-name="Hogwarts Legacy"><img src="110.jpg" alt="Hogwarts Legacy"><h3>Hogwarts Legacy</h3></div>
+<div class="game-card" data-name="Kena: Bridge of Spirits"><img src="111.jpg" alt="Kena: Bridge of Spirits"><h3>Kena: Bridge of Spirits</h3></div>
+<div class="game-card" data-name="Lost Judgment"><img src="112.jpg" alt="Lost Judgment"><h3>Lost Judgment</h3></div>
+<div class="game-card" data-name="Mario + Rabbids: Sparks of Hope"><img src="113.jpg" alt="Mario + Rabbids: Sparks of Hope"><h3>Mario + Rabbids: Sparks of Hope</h3></div>
+<div class="game-card" data-name="Mass Effect Legendary Edition"><img src="114.jpg" alt="Mass Effect Legendary Edition"><h3>Mass Effect Legendary Edition</h3></div>
+<div class="game-card" data-name="Medieval Dynasty"><img src="115.jpg" alt="Medieval Dynasty"><h3>Medieval Dynasty</h3></div>
+<div class="game-card" data-name="Metal Gear Solid V: The Phantom Pain"><img src="116.jpg" alt="Metal Gear Solid V: The Phantom Pain"><h3>Metal Gear Solid V: The Phantom Pain</h3></div>
+<div class="game-card" data-name="Metro Exodus"><img src="117.jpg" alt="Metro Exodus"><h3>Metro Exodus</h3></div>
+<div class="game-card" data-name="Middle-earth: Shadow of Mordor"><img src="118.jpg" alt="Middle-earth: Shadow of Mordor"><h3>Middle-earth: Shadow of Mordor</h3></div>
+<div class="game-card" data-name="Monster Hunter Rise"><img src="119.jpg" alt="Monster Hunter Rise"><h3>Monster Hunter Rise</h3></div>
+<div class="game-card" data-name="Nioh 2"><img src="120.jpg" alt="Nioh 2"><h3>Nioh 2</h3></div>
+<div class="game-card" data-name="Outriders"><img src="121.jpg" alt="Outriders"><h3>Outriders</h3></div>
+<div class="game-card" data-name="Returnal"><img src="122.jpg" alt="Returnal"><h3>Returnal</h3></div>
+<div class="game-card" data-name="Saints Row (2022)"><img src="123.jpg" alt="Saints Row (2022)"><h3>Saints Row (2022)</h3></div>
+<div class="game-card" data-name="Scarlet Nexus"><img src="124.jpg" alt="Scarlet Nexus"><h3>Scarlet Nexus</h3></div>
+<div class="game-card" data-name="Senua's Saga: Hellblade II"><img src="125.jpg" alt="Senua's Saga: Hellblade II"><h3>Senua's Saga: Hellblade II</h3></div>
+<div class="game-card" data-name="Silent Hill 2 Remake"><img src="126.jpg" alt="Silent Hill 2 Remake"><h3>Silent Hill 2 Remake</h3></div>
+<div class="game-card" data-name="Splatoon 3"><img src="127.jpg" alt="Splatoon 3"><h3>Splatoon 3</h3></div>
+<div class="game-card" data-name="Starfield"><img src="128.jpg" alt="Starfield"><h3>Starfield</h3></div>
+<div class="game-card" data-name="Suicide Squad: Kill the Justice League"><img src="129.jpg" alt="Suicide Squad: Kill the Justice League"><h3>Suicide Squad: Kill the Justice League</h3></div>
+<div class="game-card" data-name="Tales of Arise"><img src="130.jpg" alt="Tales of Arise"><h3>Tales of Arise</h3></div>
+<div class="game-card" data-name="The Callisto Protocol"><img src="131.jpg" alt="The Callisto Protocol"><h3>The Callisto Protocol</h3></div>
+<div class="game-card" data-name="The Legend of Zelda: Tears of the Kingdom"><img src="132.jpg" alt="The Legend of Zelda: Tears of the Kingdom"><h3>The Legend of Zelda: Tears of the Kingdom</h3></div>
+<div class="game-card" data-name="The Sims 4"><img src="133.jpg" alt="The Sims 4"><h3>The Sims 4</h3></div>
+<div class="game-card" data-name="Tiny Tina's Wonderlands"><img src="134.jpg" alt="Tiny Tina's Wonderlands"><h3>Tiny Tina's Wonderlands</h3></div>
+<div class="game-card" data-name="Total War: Warhammer III"><img src="135.jpg" alt="Total War: Warhammer III"><h3>Total War: Warhammer III</h3></div>
+<div class="game-card" data-name="Tunic"><img src="136.jpg" alt="Tunic"><h3>Tunic</h3></div>
+<div class="game-card" data-name="Uncharted: The Lost Legacy"><img src="137.jpg" alt="Uncharted: The Lost Legacy"><h3>Uncharted: The Lost Legacy</h3></div>
+<div class="game-card" data-name="Vampire: The Masquerade – Bloodlines 2"><img src="138.jpg" alt="Vampire: The Masquerade – Bloodlines 2"><h3>Vampire: The Masquerade – Bloodlines 2</h3></div>
+<div class="game-card" data-name="Warhammer 40,000: Darktide"><img src="139.jpg" alt="Warhammer 40,000: Darktide"><h3>Warhammer 40,000: Darktide</h3></div>
+<div class="game-card" data-name="Wild Hearts"><img src="140.jpg" alt="Wild Hearts"><h3>Wild Hearts</h3></div>
+<div class="game-card" data-name="Wolfenstein II: The New Colossus"><img src="141.jpg" alt="Wolfenstein II: The New Colossus"><h3>Wolfenstein II: The New Colossus</h3></div>
+<div class="game-card" data-name="Xenoblade Chronicles 3"><img src="142.jpg" alt="Xenoblade Chronicles 3"><h3>Xenoblade Chronicles 3</h3></div>
+<div class="game-card" data-name="Yakuza 6: The Song of Life"><img src="143.jpg" alt="Yakuza 6: The Song of Life"><h3>Yakuza 6: The Song of Life</h3></div>
+<div class="game-card" data-name="Zombi"><img src="144.jpg" alt="Zombi"><h3>Zombi</h3></div>
+<div class="game-card" data-name="Darksiders III"><img src="145.jpg" alt="Darksiders III"><h3>Darksiders III</h3></div>
+<div class="game-card" data-name="The Quarry"><img src="146.jpg" alt="The Quarry"><h3>The Quarry</h3></div>
+<div class="game-card" data-name="Two Point Campus"><img src="147.jpg" alt="Two Point Campus"><h3>Two Point Campus</h3></div>
+<div class="game-card" data-name="Planet Zoo"><img src="148.jpg" alt="Planet Zoo"><h3>Planet Zoo</h3></div>
+<div class="game-card" data-name="Days Gone"><img src="149.jpg" alt="Days Gone"><h3>Days Gone</h3></div>
+<div class="game-card" data-name="Project CARS 3"><img src="150.jpg" alt="Project CARS 3"><h3>Project CARS 3</h3></div>
+<div class="game-card" data-name="The Evil Within 2"><img src="151.jpg" alt="The Evil Within 2"><h3>The Evil Within 2</h3></div>
+<div class="game-card" data-name="Weird West"><img src="152.jpg" alt="Weird West"><h3>Weird West</h3></div>
+<div class="game-card" data-name="Sable"><img src="153.jpg" alt="Sable"><h3>Sable</h3></div>
+<div class="game-card" data-name="Inscryption"><img src="154.jpg" alt="Inscryption"><h3>Inscryption</h3></div>
+<div class="game-card" data-name="Trek to Yomi"><img src="155.jpg" alt="Trek to Yomi"><h3>Trek to Yomi</h3></div>
+<div class="game-card" data-name="The Stanley Parable: Ultra Deluxe"><img src="156.jpg" alt="The Stanley Parable: Ultra Deluxe"><h3>The Stanley Parable: Ultra Deluxe</h3></div>
+<div class="game-card" data-name="Neon White"><img src="157.jpg" alt="Neon White"><h3>Neon White</h3></div>
+<div class="game-card" data-name="Steelrising"><img src="158.jpg" alt="Steelrising"><h3>Steelrising</h3></div>
+<div class="game-card" data-name="Silt"><img src="159.jpg" alt="Silt"><h3>Silt</h3></div>
+<div class="game-card" data-name="GTA 5"><img src="160.jpg" alt="GTA 5"><h3>GTA 5</h3></div>
+<div class="game-card" data-name="Soulstice"><img src="161.jpg" alt="Soulstice"><h3>Soulstice</h3></div>
+<div class="game-card" data-name="Hyper Light Breaker"><img src="162.jpg" alt="Hyper Light Breaker"><h3>Hyper Light Breaker</h3></div>
+<div class="game-card" data-name="Raji: An Ancient Epic"><img src="163.jpg" alt="Raji: An Ancient Epic"><h3>Raji: An Ancient Epic</h3></div>
+<div class="game-card" data-name="Atomic Heart"><img src="164.jpg" alt="Atomic Heart"><h3>Atomic Heart</h3></div>
+<div class="game-card" data-name="Lost Ark"><img src="165.jpg" alt="Lost Ark"><h3>Lost Ark</h3></div>
+<div class="game-card" data-name="Tower of Fantasy"><img src="166.jpg" alt="Tower of Fantasy"><h3>Tower of Fantasy</h3></div>
+<div class="game-card" data-name="Marauders"><img src="167.jpg" alt="Marauders"><h3>Marauders</h3></div>
+<div class="game-card" data-name="Dread Hunger"><img src="168.jpg" alt="Dread Hunger"><h3>Dread Hunger</h3></div>
+<div class="game-card" data-name="Disney Mirrorverse"><img src="169.jpg" alt="Disney Mirrorverse"><h3>Disney Mirrorverse</h3></div>
+<div class="game-card" data-name="Palworld"><img src="170.jpg" alt="Palworld"><h3>Palworld</h3></div>
+<div class="game-card" data-name="Aliens: Dark Descent"><img src="171.jpg" alt="Aliens: Dark Descent"><h3>Aliens: Dark Descent</h3></div>
+<div class="game-card" data-name="A Plague Tale: Requiem"><img src="172.jpg" alt="A Plague Tale: Requiem"><h3>A Plague Tale: Requiem</h3></div>
+<div class="game-card" data-name="Redfall"><img src="173.jpg" alt="Redfall"><h3>Redfall</h3></div>
+<div class="game-card" data-name="Scorn"><img src="174.jpg" alt="Scorn"><h3>Scorn</h3></div>
+<div class="game-card" data-name="High on Life"><img src="175.jpg" alt="High on Life"><h3>High on Life</h3></div>
+<div class="game-card" data-name="The Dark Pictures: The Devil in Me"><img src="176.jpg" alt="The Dark Pictures: The Devil in Me"><h3>The Dark Pictures: The Devil in Me</h3></div>
+<div class="game-card" data-name="Pentiment"><img src="177.jpg" alt="Pentiment"><h3>Pentiment</h3></div>
+<div class="game-card" data-name="Hades II"><img src="178.jpg" alt="Hades II"><h3>Hades II</h3></div>
+<div class="game-card" data-name="Deliver Us Mars"><img src="179.jpg" alt="Deliver Us Mars"><h3>Deliver Us Mars</h3></div>
+<div class="game-card" data-name="DokeV"><img src="180.jpg" alt="DokeV"><h3>DokeV</h3></div>
+<div class="game-card" data-name="Party Animals"><img src="181.jpg" alt="Party Animals"><h3>Party Animals</h3></div>
+<div class="game-card" data-name="Half-Life 2"><img src="201.jpg" alt="Half-Life 2"><h3>Half-Life 2</h3></div>
+<div class="game-card" data-name="Dark Souls III"><img src="202.jpg" alt="Dark Souls III"><h3>Dark Souls III</h3></div>
+<div class="game-card" data-name="Grand Theft Auto: Vice City"><img src="203.jpg" alt="Grand Theft Auto: Vice City"><h3>Grand Theft Auto: Vice City</h3></div>
+<div class="game-card" data-name="Grand Theft Auto IV"><img src="205.jpg" alt="Grand Theft Auto IV"><h3>Grand Theft Auto IV</h3></div>
+<div class="game-card" data-name="Persona 5 Royal"><img src="206.jpg" alt="Persona 5 Royal"><h3>Persona 5 Royal</h3></div>
+<div class="game-card" data-name="Grand Theft Auto: San Andreas"><img src="207.jpg" alt="Grand Theft Auto: San Andreas"><h3>Grand Theft Auto: San Andreas</h3></div>
+<div class="game-card" data-name="Red Dead Redemption"><img src="208.jpg" alt="Red Dead Redemption"><h3>Red Dead Redemption</h3></div>
+<div class="game-card" data-name="The Legend of Zelda: Majora's Mask"><img src="209.jpg" alt="The Legend of Zelda: Majora's Mask"><h3>The Legend of Zelda: Majora's Mask</h3></div>
+<div class="game-card" data-name="Super Metroid"><img src="211.jpg" alt="Super Metroid"><h3>Super Metroid</h3></div>
+<div class="game-card" data-name="Hollow Knight"><img src="212.jpg" alt="Hollow Knight"><h3>Hollow Knight</h3></div>
+<div class="game-card" data-name="BioShock"><img src="214.jpg" alt="BioShock"><h3>BioShock</h3></div>
+<div class="game-card" data-name="Dishonored"><img src="215.jpg" alt="Dishonored"><h3>Dishonored</h3></div>
+<div class="game-card" data-name="Star Wars: Knights of the Old Republic"><img src="216.jpg" alt="Star Wars: Knights of the Old Republic"><h3>Star Wars: Knights of the Old Republic</h3></div>
+<div class="game-card" data-name="Divinity: Original Sin 2"><img src="217.jpg" alt="Divinity: Original Sin 2"><h3>Divinity: Original Sin 2</h3></div>
+<div class="game-card" data-name="Inside"><img src="218.jpg" alt="Inside"><h3>Inside</h3></div>
+<div class="game-card" data-name="Assassin's Creed Syndicate"><img src="219.jpg" alt="Assassin's Creed Syndicate"><h3>Assassin's Creed Syndicate</h3></div>
+<div class="game-card" data-name="Nier: Automata"><img src="220.jpg" alt="Nier: Automata"><h3>Nier: Automata</h3></div>
+<div class="game-card" data-name="Shadow of the Colossus"><img src="221.jpg" alt="Shadow of the Colossus"><h3>Shadow of the Colossus</h3></div>
+<div class="game-card" data-name="Braid"><img src="222.jpg" alt="Braid"><h3>Braid</h3></div>
+<div class="game-card" data-name="Uncharted 2: Among Thieves"><img src="223.jpg" alt="Uncharted 2: Among Thieves"><h3>Uncharted 2: Among Thieves</h3></div>
+<div class="game-card" data-name="Firewatch"><img src="224.jpg" alt="Firewatch"><h3>Firewatch</h3></div>
+<div class="game-card" data-name="Bastion"><img src="225.jpg" alt="Bastion"><h3>Bastion</h3></div>
+<div class="game-card" data-name="Splinter Cell: Chaos Theory"><img src="226.jpg" alt="Splinter Cell: Chaos Theory"><h3>Splinter Cell: Chaos Theory</h3></div>
+<div class="game-card" data-name="Fez"><img src="227.jpg" alt="Fez"><h3>Fez</h3></div>
+<div class="game-card" data-name="Journey"><img src="228.jpg" alt="Journey"><h3>Journey</h3></div>
+<div class="game-card" data-name="Hellblade: Senua's Sacrifice"><img src="229.jpg" alt="Hellblade: Senua's Sacrifice"><h3>Hellblade: Senua's Sacrifice</h3></div>
+<div class="game-card" data-name="Assassin's Creed IV: Black Flag"><img src="230.jpg" alt="Assassin's Creed IV: Black Flag"><h3>Assassin's Creed IV: Black Flag</h3></div>
+<div class="game-card" data-name="The Talos Principle"><img src="231.jpg" alt="The Talos Principle"><h3>The Talos Principle</h3></div>
+<div class="game-card" data-name="Uncharted 4: A Thief's End"><img src="232.jpg" alt="Uncharted 4: A Thief's End"><h3>Uncharted 4: A Thief's End</h3></div>
+<div class="game-card" data-name="Amnesia: The Dark Descent"><img src="233.jpg" alt="Amnesia: The Dark Descent"><h3>Amnesia: The Dark Descent</h3></div>
+<div class="game-card" data-name="Outlast"><img src="234.jpg" alt="Outlast"><h3>Outlast</h3></div>
+<div class="game-card" data-name="Alien: Isolation"><img src="235.jpg" alt="Alien: Isolation"><h3>Alien: Isolation</h3></div>
+<div class="game-card" data-name="Hotline Miami"><img src="236.jpg" alt="Hotline Miami"><h3>Hotline Miami</h3></div>
+<div class="game-card" data-name="Gris"><img src="237.jpg" alt="Gris"><h3>Gris</h3></div>
+<div class="game-card" data-name="Uncharted 3: Drake's Deception"><img src="238.jpg" alt="Uncharted 3: Drake's Deception"><h3>Uncharted 3: Drake's Deception</h3></div>
+<div class="game-card" data-name="Prey"><img src="239.jpg" alt="Prey"><h3>Prey</h3></div>
+<div class="game-card" data-name="Oxenfree"><img src="240.jpg" alt="Oxenfree"><h3>Oxenfree</h3></div>
+<div class="game-card" data-name="Soma"><img src="241.jpg" alt="Soma"><h3>Soma</h3></div>
+<div class="game-card" data-name="Subnautica"><img src="242.jpg" alt="Subnautica"><h3>Subnautica</h3></div>
+<div class="game-card" data-name="The Forest"><img src="243.jpg" alt="The Forest"><h3>The Forest</h3></div>
+<div class="game-card" data-name="Danganronpa V3: Killing Harmony"><img src="244.jpg" alt="Danganronpa V3: Killing Harmony"><h3>Danganronpa V3: Killing Harmony</h3></div>
+<div class="game-card" data-name="Gone Home"><img src="245.jpg" alt="Gone Home"><h3>Gone Home</h3></div>
+<div class="game-card" data-name="What Remains of Edith Finch"><img src="246.jpg" alt="What Remains of Edith Finch"><h3>What Remains of Edith Finch</h3></div>
+<div class="game-card" data-name="Stardew Valley"><img src="247.jpg" alt="Stardew Valley"><h3>Stardew Valley</h3></div>
+<div class="game-card" data-name="Undertale"><img src="248.jpg" alt="Undertale"><h3>Undertale</h3></div>
+<div class="game-card" data-name="Life is Strange"><img src="249.jpg" alt="Life is Strange"><h3>Life is Strange</h3></div>
+<div class="game-card" data-name="The Witness"><img src="250.jpg" alt="The Witness"><h3>The Witness</h3></div>
+<div class="game-card" data-name="Grand Theft Auto III"><img src="251.jpg" alt="Grand Theft Auto III"><h3>Grand Theft Auto III</h3></div>
+<div class="game-card" data-name="Mafia: Definitive Edition"><img src="252.jpg" alt="Mafia: Definitive Edition"><h3>Mafia: Definitive Edition</h3></div>
+<div class="game-card" data-name="Return of the Obra Dinn"><img src="253.jpg" alt="Return of the Obra Dinn"><h3>Return of the Obra Dinn</h3></div>
+<div class="game-card" data-name="Hyper Light Drifter"><img src="254.jpg" alt="Hyper Light Drifter"><h3>Hyper Light Drifter</h3></div>
+<div class="game-card" data-name="Thumper"><img src="255.jpg" alt="Thumper"><h3>Thumper</h3></div>
+<div class="game-card" data-name="Mafia II: Definitive Edition"><img src="256.jpg" Mafia II: Definitive Edition"><h3>Mafia II: Definitive Edition</h3></div>
+<div class="game-card" data-name="Ori and the Blind Forest"><img src="257.jpg" alt="Ori and the Blind Forest"><h3>Ori and the Blind Forest</h3></div>
+<div class="game-card" data-name="Apex Legends"><img src="258.jpg" alt="Apex Legends"><h3>Apex Legends</h3></div>
+<div class="game-card" data-name="Mafia III Definitive Edition "><img src="259.jpg" alt="Mafia III Definitive Edition "><h3>Mafia III Definitive Edition </h3></div>
+<div class="game-card" data-name="The Witcher 2: Assassins of Kings"><img src="262.jpg" alt="The Witcher 2: Assassins of Kings"><h3>The Witcher 2: Assassins of Kings</h3></div>
+<div class="game-card" data-name="Dead by Daylight"><img src="263.jpg" alt="Dead by Daylight"><h3>Dead by Daylight</h3></div>
+<div class="game-card" data-name="The Binding of Isaac"><img src="264.jpg" alt="The Binding of Isaac"><h3>The Binding of Isaac</h3></div>
+<div class="game-card" data-name="FTL: Faster Than Light"><img src="265.jpg" alt="FTL: Faster Than Light"><h3>FTL: Faster Than Light</h3></div>
+<div class="game-card" data-name="Into the Breach"><img src="266.jpg" alt="Into the Breach"><h3>Into the Breach</h3></div>
+<div class="game-card" data-name="Limbo"><img src="267.jpg" alt="Limbo"><h3>Limbo</h3></div>
+<div class="game-card" data-name="Super Meat Boy"><img src="268.jpg" alt="Super Meat Boy"><h3>Super Meat Boy</h3></div>
+<div class="game-card" data-name="Spelunky"><img src="269.jpg" alt="Spelunky"><h3>Spelunky</h3></div>
+<div class="game-card" data-name="Factorio"><img src="270.jpg" alt="Factorio"><h3>Factorio</h3></div>
+<div class="game-card" data-name="Terraria"><img src="272.jpg" alt="Terraria"><h3>Terraria</h3></div>
+<div class="game-card" data-name="The Witcher"><img src="273.jpg" alt="The Witcher"><h3>The Witcher</h3></div>
+<div class="game-card" data-name="The Talos Principle II"><img src="275.jpg" alt="The Talos Principle II"><h3>The Talos Principle II</h3></div>
+<div class="game-card" data-name="The Witness"><img src="276.jpg" alt="The Witness"><h3>The Witness</h3></div>
+<div class="game-card" data-name="Brothers: A Tale of Two Sons"><img src="278.jpg" alt="Brothers: A Tale of Two Sons"><h3>Brothers: A Tale of Two Sons</h3></div>
+<div class="game-card" data-name="Papers, Please"><img src="279.jpg" alt="Papers, Please"><h3>Papers, Please</h3></div>
+<div class="game-card" data-name="Assassin's Creed Unity"><img src="281.jpg" alt="Assassin's Creed Unity"><h3>Assassin's Creed Unity</h3></div>
+<div class="game-card" data-name="Slime Rancher"><img src="282.jpg" alt="Slime Rancher"><h3>Slime Rancher</h3></div>
+<div class="game-card" data-name="Oxenfree 2"><img src="283.jpg" alt="Oxenfree 2"><h3>Oxenfree 2</h3></div>
+<div class="game-card" data-name="Assassin's Creed II"><img src="284.jpg" alt="Assassin's Creed II"><h3>Assassin's Creed II</h3></div>
+<div class="game-card" data-name="Way of The Hunter"><img src="285.jpg" alt="Way of The Hunter"><h3>Way of The Hunter</h3></div>
+<div class="game-card" data-name="The Messenger"><img src="286.jpg" alt="The Messenger"><h3>The Messenger</h3></div>
+<div class="game-card" data-name="Katana ZERO"><img src="287.jpg" alt="Katana ZERO"><h3>Katana ZERO</h3></div>
+<div class="game-card" data-name="Risk of Rain 2"><img src="288.jpg" alt="Risk of Rain 2"><h3>Risk of Rain 2</h3></div>
+<div class="game-card" data-name="Gorogoa"><img src="289.jpg" alt="Gorogoa"><h3>Gorogoa</h3></div>
+<div class="game-card" data-name="A Short Hike"><img src="290.jpg" alt="A Short Hike"><h3>A Short Hike</h3></div>
+<div class="game-card" data-name="Hypnospace Outlaw"><img src="291.jpg" alt="Hypnospace Outlaw"><h3>Hypnospace Outlaw</h3></div>
+<div class="game-card" data-name="Darkwood"><img src="292.jpg" alt="Darkwood"><h3>Darkwood</h3></div>
+<div class="game-card" data-name="Disco Elysium"><img src="293.jpg" alt="Disco Elysium"><h3>Disco Elysium</h3></div>
+<div class="game-card" data-name="Borderlands 2"><img src="294.jpg" alt="Borderlands 2"><h3>Borderlands 2</h3></div>
+<div class="game-card" data-name="Outer Wilds"><img src="295.jpg" alt="Outer Wilds"><h3>Outer Wilds</h3></div>
+<div class="game-card" data-name="Black Myth: Wukong"><img src="296.jpg" alt="Black Myth: Wukong"><h3>Black Myth: Wukong</h3></div>
+<div class="game-card" data-name="The Banner Saga"><img src="297.jpg" alt="The Banner Saga"><h3>The Banner Saga</h3></div>
+<div class="game-card" data-name="Don't Starve"><img src="298.jpg" alt="Don't Starve"><h3>Don't Starve</h3></div>
+<div class="game-card" data-name="The Escapists"><img src="299.jpg" alt="The Escapists"><h3>The Escapists</h3></div>
+<div class="game-card" data-name="Valheim"><img src="300.jpg" alt="Valheim"><h3>Valheim</h3></div>
+<div class="game-card" data-name="Baba Is You"><img src="301.jpg" alt="Baba Is You"><h3>Baba Is You</h3></div>
+<div class="game-card" data-name="Assassin's Creed Shadows"><img src="302.jpg" alt="Assassin's Creed Shadows"><h3>Assassin's Creed Shadows</h3></div>
+<div class="game-card" data-name="Far Cry"><img src="303.jpg" alt="Far Cry"><h3>Far Cry</h3></div>
+<div class="game-card" data-name="Far Cry 2"><img src="304.jpg" alt="Far Cry 2"><h3>Far Cry 2</h3></div>
+<div class="game-card" data-name="Astroneer"><img src="305.jpg" alt="Astroneer"><h3>Astroneer</h3></div>
+<div class="game-card" data-name="Frostpunk"><img src="306.jpg" alt="Frostpunk"><h3>Frostpunk</h3></div>
+<div class="game-card" data-name="Children of Morta"><img src="307.jpg" alt="Children of Morta"><h3>Children of Morta</h3></div>
+<div class="game-card" data-name="Far Cry 3"><img src="308.jpg" alt="Far Cry 3"><h3>Far Cry 3</h3></div>
+<div class="game-card" data-name="My Friend Pedro"><img src="309.jpg" alt="My Friend Pedro"><h3>My Friend Pedro</h3></div>
+<div class="game-card" data-name="Void Bastards"><img src="310.jpg" alt="Void Bastards"><h3>Void Bastards</h3></div>
+<div class="game-card" data-name="Slay the Spire"><img src="311.jpg" alt="Slay the Spire"><h3>Slay the Spire</h3></div>
+<div class="game-card" data-name="Overcooked"><img src="312.jpg" alt="Overcooked"><h3>Overcooked</h3></div>
+<div class="game-card" data-name="Enter the Gungeon"><img src="313.jpg" alt="Enter the Gungeon"><h3>Enter the Gungeon</h3></div>
+<div class="game-card" data-name="Far Cry 4"><img src="314.jpg" alt="Far Cry 4"><h3>Far Cry 4</h3></div>
+<div class="game-card" data-name="Need for Speed: Most Wanted"><img src="315.jpg" alt="Need for Speed: Most Wanted"><h3>Need for Speed: Most Wanted</h3></div>
+<div class="game-card" data-name="Don't Starve Together"><img src="316.jpg" alt="Don't Starve Together"><h3>Don't Starve Together</h3></div>
+<div class="game-card" data-name="Nidhogg"><img src="317.jpg" alt="Nidhogg"><h3>Nidhogg</h3></div>
+<div class="game-card" data-name="The Jackbox Party Pack"><img src="318.jpg" alt="The Jackbox Party Pack"><h3>The Jackbox Party Pack</h3></div>
+<div class="game-card" data-name="Human: Fall Flat"><img src="319.jpg" alt="Human: Fall Flat"><h3>Human: Fall Flat</h3></div>
+<div class="game-card" data-name="Deep Rock Galactic"><img src="320.jpg" alt="Deep Rock Galactic"><h3>Deep Rock Galactic</h3></div>
+<div class="game-card" data-name="Moving Out"><img src="321.jpg" alt="Moving Out"><h3>Moving Out</h3></div>
+<div class="game-card" data-name="Lovers in a Dangerous Spacetime"><img src="322.jpg" alt="Lovers in a Dangerous Spacetime"><h3>Lovers in a Dangerous Spacetime</h3></div>
+<div class="game-card" data-name="Broforce"><img src="323.jpg" alt="Broforce"><h3>Broforce</h3></div>
+<div class="game-card" data-name="The Escapists 2"><img src="324.jpg" alt="The Escapists 2"><h3>The Escapists 2</h3></div>
+<div class="game-card" data-name="Death's Door"><img src="325.jpg" alt="Death's Door"><h3>Death's Door</h3></div>
+<div class="game-card" data-name="Forager"><img src="326.jpg" alt="Forager"><h3>Forager</h3></div>
+<div class="game-card" data-name="Loop Hero"><img src="327.jpg" alt="Loop Hero"><h3>Loop Hero</h3></div>
+<div class="game-card" data-name="Carrion"><img src="328.jpg" alt="Carrion"><h3>Carrion</h3></div>
+<div class="game-card" data-name="Risk of Rain"><img src="329.jpg" alt="Risk of Rain"><h3>Risk of Rain</h3></div>
+<div class="game-card" data-name="Need for Speed Payback"><img src="330.jpg" alt="Need for Speed Payback"><h3>Need for Speed Payback</h3></div>
+<div class="game-card" data-name="Need for Speed Rivals"><img src="331.jpg" alt="Need for Speed Rivals"><h3>Need for Speed Rivals</h3></div>
+<div class="game-card" data-name="Sleeping Dogs"><img src="332.jpg" alt="Sleeping Dogs"><h3>Sleeping Dogs</h3></div>
+<div class="game-card" data-name="Assassin's Creed: Brotherhood"><img src="333.jpg" alt="Assassin's Creed: Brotherhood"><h3>Assassin's Creed: Brotherhood</h3></div>
+<div class="game-card" data-name="Prince of Persia: Warrior Within"><img src="334.jpg" alt="Prince of Persia: Warrior Within"><h3>Prince of Persia: Warrior Within</h3></div>
+<div class="game-card" data-name="Wizard of Legend"><img src="335.jpg" alt="Wizard of Legend"><h3>Wizard of Legend</h3></div>
+<div class="game-card" data-name="Moonlighter"><img src="336.jpg" alt="Moonlighter"><h3>Moonlighter</h3></div>
+<div class="game-card" data-name="Battle Chasers: Nightwar"><img src="337.jpg" alt="Battle Chasers: Nightwar"><h3>Battle Chasers: Nightwar</h3></div>
+<div class="game-card" data-name="Quantum Break"><img src="338.jpg" alt="Quantum Break"><h3>Quantum Break</h3></div>
+<div class="game-card" data-name="Prince of Persia: The Sands of Time"><img src="339.jpg" alt="Prince of Persia: The Sands of Time"><h3>Prince of Persia: The Sands of Time</h3></div>
+<div class="game-card" data-name="Prince of Persia: The Lost Crown"><img src="340.jpg" alt="Prince of Persia: The Lost Crown"><h3>Prince of Persia: The Lost Crown</h3></div>
+<div class="game-card" data-name="Battlefield Hardline"><img src="341.jpg" alt="Battlefield Hardline"><h3>Battlefield Hardline</h3></div>
+<div class="game-card" data-name="Death's Gambit"><img src="342.jpg" alt="Death's Gambit"><h3>Death's Gambit</h3></div>
+<div class="game-card" data-name="Axiom Verge"><img src="343.jpg" alt="Axiom Verge"><h3>Axiom Verge</h3></div>
+<div class="game-card" data-name="Momodora: Reverie Under the Moonlight"><img src="344.jpg" alt="Momodora: Reverie Under the Moonlight"><h3>Momodora: Reverie Under the Moonlight</h3></div>
+<div class="game-card" data-name="Blasphemous"><img src="345.jpg" alt="Blasphemous"><h3>Blasphemous</h3></div>
+<div class="game-card" data-name="Bloodstained: Ritual of the Night"><img src="346.jpg" alt="Bloodstained: Ritual of the Night"><h3>Bloodstained: Ritual of the Night</h3></div>
+<div class="game-card" data-name="Salt and Sanctuary"><img src="347.jpg" alt="Salt and Sanctuary"><h3>Salt and Sanctuary</h3></div>
+<div class="game-card" data-name="Guacamelee! 2"><img src="348.jpg" alt="Guacamelee! 2"><h3>Guacamelee! 2</h3></div>
+<div class="game-card" data-name="The End Is Nigh"><img src="349.jpg" alt="The End Is Nigh"><h3>The End Is Nigh</h3></div>
+<div class="game-card" data-name="La-Mulana 2"><img src="350.jpg" alt="La-Mulana 2"><h3>La-Mulana 2</h3></div>
+<div class="game-card" data-name="Star Renegades"><img src="351.jpg" alt="Star Renegades"><h3>Star Renegades</h3></div>
+<div class="game-card" data-name="Battlefield 2"><img src="352.jpg" alt="Battlefield 2"><h3>Battlefield 2</h3></div>
+<div class="game-card" data-name="Undermine"><img src="353.jpg" alt="Undermine"><h3>Undermine</h3></div>
+<div class="game-card" data-name="CrossCode"><img src="354.jpg" alt="CrossCode"><h3>CrossCode</h3></div>
+<div class="game-card" data-name="Noita"><img src="355.jpg" alt="Noita"><h3>Noita</h3></div>
+<div class="game-card" data-name="Battlefield 3"><img src="356.jpg" alt="Battlefield 3"><h3>Battlefield 3</h3></div>
+<div class="game-card" data-name="Battle Chef Brigade"><img src="357.jpg" alt="Battle Chef Brigade"><h3>Battle Chef Brigade</h3></div>
+<div class="game-card" data-name="Ruiner"><img src="358.jpg" alt="Ruiner"><h3>Ruiner</h3></div>
+<div class="game-card" data-name="The Red Strings Club"><img src="359.jpg" alt="The Red Strings Club"><h3>The Red Strings Club</h3></div>
+<div class="game-card" data-name="Tacoma"><img src="360.jpg" alt="Tacoma"><h3>Tacoma</h3></div>
+<div class="game-card" data-name="Headlander"><img src="361.jpg" alt="Headlander"><h3>Headlander</h3></div>
+<div class="game-card" data-name="Deadbolt"><img src="362.jpg" alt="Deadbolt"><h3>Deadbolt</h3></div>
+<div class="game-card" data-name="Super Time Force Ultra"><img src="363.jpg" alt="Super Time Force Ultra"><h3>Super Time Force Ultra</h3></div>
+<div class="game-card" data-name="Battlefield 4"><img src="364.jpg" alt="Battlefield 4"><h3>Battlefield 4</h3></div>
+<div class="game-card" data-name="Hue"><img src="365.jpg" alt="Hue"><h3>Hue</h3></div>
+<div class="game-card" data-name="Pony Island"><img src="366.jpg" alt="Pony Island"><h3>Pony Island</h3></div>
+<div class="game-card" data-name="Emily Is Away"><img src="367.jpg" alt="Emily Is Away"><h3>Emily Is Away</h3></div>
+<div class="game-card" data-name="The Hex"><img src="368.jpg" alt="The Hex"><h3>The Hex</h3></div>
+<div class="game-card" data-name="A Normal Lost Phone"><img src="369.jpg" alt="A Normal Lost Phone"><h3>A Normal Lost Phone</h3></div>
+<div class="game-card" data-name="Need for Speed: The Run"><img src="370.jpg" alt="Need for Speed: The Run"><h3>Need for Speed: The Run</h3></div>
+<div class="game-card" data-name="Her Story"><img src="371.jpg" alt="Her Story"><h3>Her Story</h3></div>
+<div class="game-card" data-name="Need for Speed: Underground"><img src="372.jpg" alt="Need for Speed: Underground"><h3>Need for Speed: Underground</h3></div>
+<div class="game-card" data-name="The Beginner's Guide"><img src="373.jpg" alt="The Beginner's Guide"><h3>The Beginner's Guide</h3></div>
+<div class="game-card" data-name="Forza Horizon"><img src="374.jpg" alt="Forza Horizon"><h3>Forza Horizon</h3></div>
+<div class="game-card" data-name="Microsoft Flight Simulator"><img src="375.jpg" alt="Microsoft Flight Simulator"><h3>Microsoft Flight Simulator</h3></div>
+<div class="game-card" data-name="Forza Horizon 2"><img src="376.jpg" alt="Forza Horizon 2"><h3>Forza Horizon 2</h3></div>
+<div class="game-card" data-name="Forza Horizon 3"><img src="377.jpg" alt="Forza Horizon 3"><h3>Forza Horizon 3</h3></div>
+<div class="game-card" data-name="Flower"><img src="378.jpg" alt="Flower"><h3>Flower</h3></div>
+<div class="game-card" data-name="Flow"><img src="379.jpg" alt="Flow"><h3>Flow</h3></div>
+<div class="game-card" data-name="Forza Horizon 4"><img src="380.jpg" alt="Forza Horizon 4"><h3>Forza Horizon 4</h3></div>
+<div class="game-card" data-name="Layers of Fear"><img src="381.jpg" alt="Layers of Fear"><h3>Layers of Fear</h3></div>
+<div class="game-card" data-name="Observer"><img src="382.jpg" alt="Observer"><h3>Observer</h3></div>
+<div class="game-card" data-name="Forza Horizon 5"><img src="383.jpg" alt="Forza Horizon 5"><h3>Forza Horizon 5</h3></div>
+<div class="game-card" data-name="Hitman"><img src="384.jpg" alt="Hitman"><h3>Hitman</h3></div>
+<div class="game-card" data-name="Minit"><img src="385.jpg" alt="Minit"><h3>Minit</h3></div>
+<div class="game-card" data-name="Nuclear Throne"><img src="387.jpg" alt="Nuclear Throne"><h3>Nuclear Throne</h3></div>
+<div class="game-card" data-name="Downwell"><img src="393.jpg" alt="Downwell"><h3>Downwell</h3></div>
+<div class="game-card" data-name="Iconoclasts"><img src="395.jpg" alt="Iconoclasts"><h3>Iconoclasts</h3></div>
+<div class="game-card" data-name="Dead Cells"><img src="400.jpg" alt="Dead Cells"><h3>Dead Cells</h3></div>
+<div class="game-card" data-name="Transistor"><img src="407.jpg" alt="Transistor"><h3>Transistor</h3></div>
+<div class="game-card" data-name="Pyre"><img src="408.jpg" alt="Pyre"><h3>Pyre</h3></div>
+<div class="game-card" data-name="Griftlands"><img src="413.jpg" alt="Griftlands"><h3>Griftlands</h3></div>
+<div class="game-card" data-name="Dicey Dungeons"><img src="414.jpg" alt="Dicey Dungeons"><h3>Dicey Dungeons</h3></div>
+<div class="game-card" data-name="Pathologic 2"><img src="416.jpg" alt="Pathologic 2"><h3>Pathologic 2</h3></div>
+<div class="game-card" data-name="Sunless Sea"><img src="417.jpg" alt="Sunless Sea"><h3>Sunless Sea</h3></div>
+<div class="game-card" data-name="The Long Dark"><img src="418.jpg" alt="The Long Dark"><h3>The Long Dark</h3></div>
+<div class="game-card" data-name="This War of Mine"><img src="420.jpg" alt="This War of Mine"><h3>This War of Mine</h3></div>
+<div class="game-card" data-name="The Flame in the Flood"><img src="422.jpg" alt="The Flame in the Flood"><h3>The Flame in the Flood</h3></div>
+<div class="game-card" data-name="Oxygen Not Included"><img src="423.jpg" alt="Oxygen Not Included"><h3>Oxygen Not Included</h3></div>
+<div class="game-card" data-name="Banished"><img src="424.jpg" alt="Banished"><h3>Banished</h3></div>
+<div class="game-card" data-name="RimWorld"><img src="425.jpg" alt="RimWorld"><h3>RimWorld</h3></div>
+<div class="game-card" data-name="Kenshi"><img src="426.jpg" alt="Kenshi"><h3>Kenshi</h3></div>
+<div class="game-card" data-name="Satisfactory"><img src="428.jpg" alt="Satisfactory"><h3>Satisfactory</h3></div>
+<div class="game-card" data-name="Stellaris"><img src="429.jpg" alt="Stellaris"><h3>Stellaris</h3></div>
+<div class="game-card" data-name="Endless Space 2"><img src="430.jpg" alt="Endless Space 2"><h3>Endless Space 2</h3></div>
+<div class="game-card" data-name="Age of Wonders: Planetfall"><img src="431.jpg" alt="Age of Wonders: Planetfall"><h3>Age of Wonders: Planetfall</h3></div>
+<div class="game-card" data-name="Northgard"><img src="432.jpg" alt="Northgard"><h3>Northgard</h3></div>
+<div class="game-card" data-name="Total War: Shogun 2"><img src="433.jpg" alt="Total War: Shogun 2"><h3>Total War: Shogun 2</h3></div>
+<div class="game-card" data-name="Total War: Three Kingdoms"><img src="434.jpg" alt="Total War: Three Kingdoms"><h3>Total War: Three Kingdoms</h3></div>
+<div class="game-card" data-name="Civilization VI"><img src="436.jpg" alt="Civilization VI"><h3>Civilization VI</h3></div>
+<div class="game-card" data-name="Europa Universalis IV"><img src="437.jpg" alt="Europa Universalis IV"><h3>Europa Universalis IV</h3></div>
+<div class="game-card" data-name="Hearts of Iron IV"><img src="438.jpg" alt="Hearts of Iron IV"><h3>Hearts of Iron IV</h3></div>
+<div class="game-card" data-name="Crusader Kings III"><img src="439.jpg" alt="Crusader Kings III"><h3>Crusader Kings III</h3></div>
+<div class="game-card" data-name="My Time at Portia"><img src="441.jpg" alt="My Time at Portia"><h3>My Time at Portia</h3></div>
+<div class="game-card" data-name="Graveyard Keeper"><img src="442.jpg" alt="Graveyard Keeper"><h3>Graveyard Keeper</h3></div>>
+<div class="game-card" data-name="Jurassic World Evolution"><img src="449.jpg" alt="Jurassic World Evolution"><h3>Jurassic World Evolution</h3></div>
+<div class="game-card" data-name="Two Point Hospital"><img src="450.jpg" alt="Two Point Hospital"><h3>Two Point Hospital</h3></div>
+<div class="game-card" data-name="SimCity 4"><img src="451.jpg" alt="SimCity 4"><h3>SimCity 4</h3></div>
+<div class="game-card" data-name="Cities: Skylines"><img src="452.jpg" alt="Cities: Skylines"><h3>Cities: Skylines</h3></div>
+<div class="game-card" data-name="Anno 1800"><img src="453.jpg" alt="Anno 1800"><h3>Anno 1800</h3></div>
+<div class="game-card" data-name="Tropico 6"><img src="454.jpg" alt="Tropico 6"><h3>Tropico 6</h3></div>
+<div class="game-card" data-name="Surviving Mars"><img src="455.jpg" alt="Surviving Mars"><h3>Surviving Mars</h3></div>
+<div class="game-card" data-name="Farming Simulator 22"><img src="456.jpg" alt="Farming Simulator 22"><h3>Farming Simulator 22</h3></div>
+<div class="game-card" data-name="House Flipper"><img src="457.jpg" alt="House Flipper"><h3>House Flipper</h3></div>
+<div class="game-card" data-name="RollerCoaster Tycoon 3"><img src="459.jpg" alt="RollerCoaster Tycoon 3"><h3>RollerCoaster Tycoon 3</h3></div>
+<div class="game-card" data-name="Zoo Tycoon"><img src="460.jpg" alt="Zoo Tycoon"><h3>Zoo Tycoon</h3></div>
+<div class="game-card" data-name="Theme Hospital"><img src="461.jpg" alt="Theme Hospital"><h3>Theme Hospital</h3></div>
+<div class="game-card" data-name="Theme Park"><img src="462.jpg" alt="Theme Park"><h3>Theme Park</h3></div>
+<div class="game-card" data-name="Transport Fever 2"><img src="464.jpg" alt="Transport Fever 2"><h3>Transport Fever 2</h3></div>
+<div class="game-card" data-name="Railroad Tycoon II"><img src="465.jpg" alt="Railroad Tycoon II"><h3>Railroad Tycoon II</h3></div>
+<div class="game-card" data-name="SimTower"><img src="466.jpg" alt="SimTower"><h3>SimTower</h3></div>
+<div class="game-card" data-name="Prison Architect"><img src="467.jpg" alt="Prison Architect"><h3>Prison Architect</h3></div>
+<div class="game-card" data-name="Don’t Starve Together"><img src="471.jpg" alt="Don’t Starve Together"><h3>Don’t Starve Together</h3></div>
+<div class="game-card" data-name="Outward"><img src="473.jpg" alt="Outward"><h3>Outward</h3></div>
+<div class="game-card" data-name="State of Decay 2"><img src="474.jpg" alt="State of Decay 2"><h3>State of Decay 2</h3></div>
+<div class="game-card" data-name="7 Days to Die"><img src="475.jpg" alt="7 Days to Die"><h3>7 Days to Die</h3></div>
+<div class="game-card" data-name="Rust"><img src="477.jpg" alt="Rust"><h3>Rust</h3></div>
+<div class="game-card" data-name="Conan Exiles"><img src="478.jpg" alt="Conan Exiles"><h3>Conan Exiles</h3></div>
+<div class="game-card" data-name="Scum"><img src="479.jpg" alt="Scum"><h3>Scum</h3></div>
+<div class="game-card" data-name="Green Hell"><img src="481.jpg" alt="Green Hell"><h3>Green Hell</h3></div>
+<div class="game-card" data-name="Stranded Deep"><img src="482.jpg" alt="Stranded Deep"><h3>Stranded Deep</h3></div>
+<div class="game-card" data-name="Raft"><img src="484.jpg" alt="Raft"><h3>Raft</h3></div>
+<div class="game-card" data-name="The Isle"><img src="485.jpg" alt="The Isle"><h3>The Isle</h3></div>
+<div class="game-card" data-name="Empyrion - Galactic Survival"><img src="486.jpg" alt="Empyrion - Galactic Survival"><h3>Empyrion - Galactic Survival</h3></div>
+<div class="game-card" data-name="Astroneer"><img src="487.jpg" alt="Astroneer"><h3>Astroneer</h3></div>
+<div class="game-card" data-name="Planetbase"><img src="489.jpg" alt="Planetbase"><h3>Planetbase</h3></div>
+<div class="game-card" data-name="Space Engineers"><img src="490.jpg" alt="Space Engineers"><h3>Space Engineers</h3></div>
+<div class="game-card" data-name="Kerbal Space Program"><img src="491.jpg" alt="Kerbal Space Program"><h3>Kerbal Space Program</h3></div>
+<div class="game-card" data-name="Universe Sandbox"><img src="492.jpg" alt="Universe Sandbox"><h3>Universe Sandbox</h3></div>
+<div class="game-card" data-name="Elite Dangerous"><img src="494.jpg" alt="Elite Dangerous"><h3>Elite Dangerous</h3></div>
+<div class="game-card" data-name="Starbound"><img src="496.jpg" alt="Starbound"><h3>Starbound</h3></div>
+<div class="game-card" data-name="Star Wars: Squadrons"><img src="498.jpg" alt="Star Wars: Squadrons"><h3>Star Wars: Squadrons</h3></div>
+<div class="game-card" data-name="EVE Online"><img src="499.jpg" alt="EVE Online"><h3>EVE Online</h3></div>
+<div class="game-card" data-name="X4: Foundations"><img src="500.jpg" alt="X4: Foundations"><h3>X4: Foundations</h3></div>
+<div class="game-card" data-name="Zoo Tycoon 2"><img src="504.jpg" alt="Zoo Tycoon 2"><h3>Zoo Tycoon 2</h3></div>
+<div class="game-card" data-name="Uncharted: Drake's Fortune"><img src="505.jpg" alt="Uncharted: Drake's Fortune"><h3>Uncharted: Drake's Fortune</h3></div>
+</div>
+
+    <script>
+        document.querySelectorAll('.game-card').forEach(card => {
+  const tooltip = card.querySelector('.tooltip');
+  const info = card.getAttribute('data-info');
+  tooltip.innerText = info;
+
+  card.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+
+  card.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+});
+
+function sortGames(order) {
+            const container = document.getElementById('game-container');
+            const games = Array.from(container.getElementsByClassName('game-card'));
+
+            games.sort((a, b) => {
+                const nameA = a.getAttribute('data-name').toLowerCase();
+                const nameB = b.getAttribute('data-name').toLowerCase();
+                if (order === 'asc') {
+                    return nameA.localeCompare(nameB);
+                } else {
+                    return nameB.localeCompare(nameA);
+                }
+            });
+
+            container.innerHTML = '';
+            games.forEach(game => container.appendChild(game));
+        }
+
+        function filterByLetter(letter) {
+            const container = document.getElementById('game-container');
+            const games = Array.from(container.getElementsByClassName('game-card'));
+
+            games.forEach(game => {
+                const gameName = game.getAttribute('data-name').toLowerCase();
+                if (gameName.startsWith(letter.toLowerCase())) {
+                    game.style.display = '';
+                } else {
+                    game.style.display = 'none';
+                }
+            });
+        }
+
+        function showAllGames() {
+            const container = document.getElementById('game-container');
+            const games = Array.from(container.getElementsByClassName('game-card'));
+
+            games.forEach(game => {
+                game.style.display = ''; // Show all games
+            });
+        }
+
+/ Select all game cards
+const gameCards = document.querySelectorAll('.game-card');
+
+// Loop through each card and add a click event listener
+gameCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // Redirect to payment.html
+        window.location.href = '../Purchase/payment.html';
+    });
+});
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Game List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            color: #f5f5f5;
+        }
+        .sort-buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        .sort-button {
+            padding: 10px 20px;
+            background-color: #d32f2f;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .sort-button:hover {
+            background-color: #b71c1c;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .game-card {
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            width: 200px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .game-card h3 {
+            margin: 10px;
+            font-size: 18px;
+            color: #f5f5f5;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Epic Game List</h2>
+<div class="sort-buttons">
+    <button class="sort-button" onclick="sortGames('asc')">Sort A-Z</button>
+    <button class="sort-button" onclick="sortGames('desc')">Sort Z-A</button>
+</div>
+
+<div class="game-container" id="game-container">
+    <div class="game-card" data-name="Age of Empires IV"><img src="7.png" alt="Age of Empires IV"><h3>Age of Empires IV</h3></div>
+<div class="game-card" data-name="Apex Legends"><img src="https://example.com/apex-legends.jpg" alt="Apex Legends"><h3>Apex Legends</h3></div>
+<div class="game-card" data-name="Ark: Survival Evolved"><img src="https://example.com/ark-survival-evolved.jpg" alt="Ark: Survival Evolved"><h3>Ark: Survival Evolved</h3></div>
+<div class="game-card" data-name="Assassin's Creed Odyssey"><img src="https://example.com/assassins-creed-odyssey.jpg" alt="Assassin's Creed Odyssey"><h3>Assassin's Creed Odyssey</h3></div>
+<div class="game-card" data-name="Baldur's Gate III"><img src="https://example.com/baldurs-gate-iii.jpg" alt="Baldur's Gate III"><h3>Baldur's Gate III</h3></div>
+<div class="game-card" data-name="Batman: Arkham City"><img src="https://example.com/batman-arkham-city.jpg" alt="Batman: Arkham City"><h3>Batman: Arkham City</h3></div>
+<div class="game-card" data-name="Bioshock Infinite"><img src="https://example.com/bioshock-infinite.jpg" alt="Bioshock Infinite"><h3>Bioshock Infinite</h3></div>
+<div class="game-card" data-name="Borderlands 3"><img src="https://example.com/borderlands-3.jpg" alt="Borderlands 3"><h3>Borderlands 3</h3></div>
+<div class="game-card" data-name="Call of Duty: Black Ops Cold War"><img src="https://example.com/cod-black-ops-cold-war.jpg" alt="Call of Duty: Black Ops Cold War"><h3>Call of Duty: Black Ops Cold War</h3></div>
+<div class="game-card" data-name="Call of Duty: Warzone"><img src="https://example.com/cod-warzone.jpg" alt="Call of Duty: Warzone"><h3>Call of Duty: Warzone</h3></div>
+<div class="game-card" data-name="Cities: Skylines"><img src="https://example.com/cities-skylines.jpg" alt="Cities: Skylines"><h3>Cities: Skylines</h3></div>
+<div class="game-card" data-name="Civilization VI"><img src="https://example.com/civilization-vi.jpg" alt="Civilization VI"><h3>Civilization VI</h3></div>
+<div class="game-card" data-name="Clash of Clans"><img src="https://example.com/clash-of-clans.jpg" alt="Clash of Clans"><h3>Clash of Clans</h3></div>
+<div class="game-card" data-name="Counter-Strike: Global Offensive"><img src="https://example.com/csgo.jpg" alt="Counter-Strike: Global Offensive"><h3>Counter-Strike: Global Offensive</h3></div>
+<div class="game-card" data-name="Crash Bandicoot 4: It’s About Time"><img src="https://example.com/crash-bandicoot-4.jpg" alt="Crash Bandicoot 4: It’s About Time"><h3>Crash Bandicoot 4: It’s About Time</h3></div>
+<div class="game-card" data-name="Cuphead"><img src="https://example.com/cuphead.jpg" alt="Cuphead"><h3>Cuphead</h3></div>
+<div class="game-card" data-name="Dark Souls Remastered"><img src="https://example.com/dark-souls-remastered.jpg" alt="Dark Souls Remastered"><h3>Dark Souls Remastered</h3></div>
+<div class="game-card" data-name="Days Gone"><img src="https://example.com/days-gone.jpg" alt="Days Gone"><h3>Days Gone</h3></div>
+<div class="game-card" data-name="Dead by Daylight"><img src="https://example.com/dead-by-daylight.jpg" alt="Dead by Daylight"><h3>Dead by Daylight</h3></div>
+<div class="game-card" data-name="Death Stranding"><img src="https://example.com/death-stranding.jpg" alt="Death Stranding"><h3>Death Stranding</h3></div>
+<div class="game-card" data-name="Diablo III"><img src="https://example.com/diablo-iii.jpg" alt="Diablo III"><h3>Diablo III</h3></div>
+<div class="game-card" data-name="Disco Elysium"><img src="https://example.com/disco-elysium.jpg" alt="Disco Elysium"><h3>Disco Elysium</h3></div>
+<div class="game-card" data-name="Divinity: Original Sin II"><img src="https://example.com/divinity-original-sin-ii.jpg" alt="Divinity: Original Sin II"><h3>Divinity: Original Sin II</h3></div>
+<div class="game-card" data-name="Doom Eternal"><img src="https://example.com/doom-eternal.jpg" alt="Doom Eternal"><h3>Doom Eternal</h3></div>
+<div class="game-card" data-name="Dragon Age: Inquisition"><img src="https://example.com/dragon-age-inquisition.jpg" alt="Dragon Age: Inquisition"><h3>Dragon Age: Inquisition</h3></div>
+<div class="game-card" data-name="Dying Light 2"><img src="https://example.com/dying-light-2.jpg" alt="Dying Light 2"><h3>Dying Light 2</h3></div>
+<div class="game-card" data-name="Escape from Tarkov"><img src="https://example.com/escape-from-tarkov.jpg" alt="Escape from Tarkov"><h3>Escape from Tarkov</h3></div>
+<div class="game-card" data-name="Far Cry 6"><img src="https://example.com/far-cry-6.jpg" alt="Far Cry 6"><h3>Far Cry 6</h3></div>
+<div class="game-card" data-name="Fallout 4"><img src="https://example.com/fallout-4.jpg" alt="Fallout 4"><h3>Fallout 4</h3></div>
+<div class="game-card" data-name="Fallout: New Vegas"><img src="https://example.com/fallout-new-vegas.jpg" alt="Fallout: New Vegas"><h3>Fallout: New Vegas</h3></div>
+<div class="game-card" data-name="FIFA 22"><img src="https://example.com/fifa-22.jpg" alt="FIFA 22"><h3>FIFA 22</h3></div>
+<div class="game-card" data-name="Final Fantasy VII Remake"><img src="https://example.com/final-fantasy-vii-remake.jpg" alt="Final Fantasy VII Remake"><h3>Final Fantasy VII Remake</h3></div>
+<div class="game-card" data-name="Final Fantasy XIV"><img src="https://example.com/final-fantasy-xiv.jpg" alt="Final Fantasy XIV"><h3>Final Fantasy XIV</h3></div>
+<div class="game-card" data-name="For Honor"><img src="https://example.com/for-honor.jpg" alt="For Honor"><h3>For Honor</h3></div>
+<div class="game-card" data-name="Forza Horizon 5"><img src="https://example.com/forza-horizon-5.jpg" alt="Forza Horizon 5"><h3>Forza Horizon 5</h3></div>
+<div class="game-card" data-name="Ghost of Tsushima"><img src="https://example.com/ghost-of-tsushima.jpg" alt="Ghost of Tsushima"><h3>Ghost of Tsushima</h3></div>
+<div class="game-card" data-name="Ghost Recon: Breakpoint"><img src="https://example.com/ghost-recon-breakpoint.jpg" alt="Ghost Recon: Breakpoint"><h3>Ghost Recon: Breakpoint</h3></div>
+<div class="game-card" data-name="Grand Theft Auto V"><img src="https://example.com/gta-v.jpg" alt="Grand Theft Auto V"><h3>Grand Theft Auto V</h3></div>
+<div class="game-card" data-name="Guilty Gear -Strive-"><img src="https://example.com/guilty-gear-strive.jpg" alt="Guilty Gear -Strive-"><h3>Guilty Gear -Strive-</h3></div>
+<div class="game-card" data-name="Half-Life: Alyx"><img src="https://example.com/half-life-alyx.jpg" alt="Half-Life: Alyx"><h3>Half-Life: Alyx</h3></div>
+<div class="game-card" data-name="Hitman 3"><img src="https://example.com/hitman-3.jpg" alt="Hitman 3"><h3>Hitman 3</h3></div>
+<div class="game-card" data-name="Hollow Knight"><img src="https://example.com/hollow-knight.jpg" alt="Hollow Knight"><h3>Hollow Knight</h3></div>
+<div class="game-card" data-name="Hot Wheels Unleashed"><img src="https://example.com/hot-wheels-unleashed.jpg" alt="Hot Wheels Unleashed"><h3>Hot Wheels Unleashed</h3></div>
+<div class="game-card" data-name="Hunt: Showdown"><img src="https://example.com/hunt-showdown.jpg" alt="Hunt: Showdown"><h3>Hunt: Showdown</h3></div>
+<div class="game-card" data-name="Immortals Fenyx Rising"><img src="https://example.com/immortals-fenyx-rising.jpg" alt="Immortals Fenyx Rising"><h3>Immortals Fenyx Rising</h3></div>
+<div class="game-card" data-name="It Takes Two"><img src="https://example.com/it-takes-two.jpg" alt="It Takes Two"><h3>It Takes Two</h3></div>
+<div class="game-card" data-name="Just Cause 4"><img src="https://example.com/just-cause-4.jpg" alt="Just Cause 4"><h3>Just Cause 4</h3></div>
+<div class="game-card" data-name="Kingdom Come: Deliverance"><img src="https://example.com/kingdom-come-deliverance.jpg" alt="Kingdom Come: Deliverance"><h3>Kingdom Come: Deliverance</h3></div>
+<div class="game-card" data-name="Kingdom Hearts III"><img src="https://example.com/kingdom-hearts-iii.jpg" alt="Kingdom Hearts III"><h3>Kingdom Hearts III</h3></div>
+<div class="game-card" data-name="Knockout City"><img src="https://example.com/knockout-city.jpg" alt="Knockout City"><h3>Knockout City</h3></div>
+<div class="game-card" data-name="Left 4 Dead 2"><img src="https://example.com/left-4-dead-2.jpg" alt="Left 4 Dead 2"><h3>Left 4 Dead 2</h3></div>
+<div class="game-card" data-name="Legend of Zelda: Twilight Princess"><img src="https://example.com/legend-of-zelda-twilight-princess.jpg" alt="Legend of Zelda: Twilight Princess"><h3>Legend of Zelda: Twilight Princess</h3></div>
+<div class="game-card" data-name="Legend of Zelda: Skyward Sword"><img src="https://example.com/legend-of-zelda-skyward-sword.jpg" alt="Legend of Zelda: Skyward Sword"><h3>Legend of Zelda: Skyward Sword</h3></div>
+<div class="game-card" data-name="Little Nightmares II"><img src="https://example.com/little-nightmares-ii.jpg" alt="Little Nightmares II"><h3>Little Nightmares II</h3></div>
+<div class="game-card" data-name="Lost Ark"><img src="https://example.com/lost-ark.jpg" alt="Lost Ark"><h3>Lost Ark</h3></div>
+<div class="game-card" data-name="Mafia: Definitive Edition"><img src="https://example.com/mafia-definitive-edition.jpg" alt="Mafia: Definitive Edition"><h3>Mafia: Definitive Edition</h3></div>
+<div class="game-card" data-name="Mass Effect Legendary Edition"><img src="https://example.com/mass-effect-legendary-edition.jpg" alt="Mass Effect Legendary Edition"><h3>Mass Effect Legendary Edition</h3></div>
+<div class="game-card" data-name="Medal of Honor: Above and Beyond"><img src="https://example.com/medal-of-honor-above-and-beyond.jpg" alt="Medal of Honor: Above and Beyond"><h3>Medal of Honor: Above and Beyond</h3></div>
+<div class="game-card" data-name="Metal Gear Solid V: The Phantom Pain"><img src="https://example.com/metal-gear-solid-v.jpg" alt="Metal Gear Solid V: The Phantom Pain"><h3>Metal Gear Solid V: The Phantom Pain</h3></div>
+<div class="game-card" data-name="Metro Exodus"><img src="https://example.com/metro-exodus.jpg" alt="Metro Exodus"><h3>Metro Exodus</h3></div>
+<div class="game-card" data-name="Monster Hunter: World"><img src="https://example.com/monster-hunter-world.jpg" alt="Monster Hunter: World"><h3>Monster Hunter: World</h3></div>
+<div class="game-card" data-name="Mortal Kombat 11"><img src="https://example.com/mortal-kombat-11.jpg" alt="Mortal Kombat 11"><h3>Mortal Kombat 11</h3></div>
+<div class="game-card" data-name="NBA 2K22"><img src="https://example.com/nba-2k22.jpg" alt="NBA 2K22"><h3>NBA 2K22</h3></div>
+<div class="game-card" data-name="Need for Speed Heat"><img src="https://example.com/need-for-speed-heat.jpg" alt="Need for Speed Heat"><h3>Need for Speed Heat</h3></div>
+<div class="game-card" data-name="Neo: The World Ends with You"><img src="https://example.com/neo-world-ends-with-you.jpg" alt="Neo: The World Ends with You"><h3>Neo: The World Ends with You</h3></div>
+<div class="game-card" data-name="Nier: Automata"><img src="https://example.com/nier-automata.jpg" alt="Nier: Automata"><h3>Nier: Automata</h3></div>
+<div class="game-card" data-name="Nioh 2"><img src="https://example.com/nioh-2.jpg" alt="Nioh 2"><h3>Nioh 2</h3></div>
+<div class="game-card" data-name="No Man's Sky"><img src="https://example.com/no-mans-sky.jpg" alt="No Man's Sky"><h3>No Man's Sky</h3></div>
+<div class="game-card" data-name="Octopath Traveler"><img src="https://example.com/octopath-traveler.jpg" alt="Octopath Traveler"><h3>Octopath Traveler</h3></div>
+<div class="game-card" data-name="Ori and the Will of the Wisps"><img src="https://example.com/ori-and-the-will-of-the-wisps.jpg" alt="Ori and the Will of the Wisps"><h3>Ori and the Will of the Wisps</h3></div>
+<div class="game-card" data-name="Outriders"><img src="https://example.com/outriders.jpg" alt="Outriders"><h3>Outriders</h3></div>
+<div class="game-card" data-name="Payday 2"><img src="https://example.com/payday-2.jpg" alt="Payday 2"><h3>Payday 2</h3></div>
+<div class="game-card" data-name="Persona 5 Royal"><img src="https://example.com/persona-5-royal.jpg" alt="Persona 5 Royal"><h3>Persona 5 Royal</h3></div>
+<div class="game-card" data-name="Phasmophobia"><img src="https://example.com/phasmophobia.jpg" alt="Phasmophobia"><h3>Phasmophobia</h3></div>
+<div class="game-card" data-name="Pillars of Eternity II: Deadfire"><img src="https://example.com/pillars-of-eternity-ii.jpg" alt="Pillars of Eternity II: Deadfire"><h3>Pillars of Eternity II: Deadfire</h3></div>
+<div class="game-card" data-name="Planet Zoo"><img src="https://example.com/planet-zoo.jpg" alt="Planet Zoo"><h3>Planet Zoo</h3></div>
+<div class="game-card" data-name="Pokemon Sword and Shield"><img src="https://example.com/pokemon-sword-and-shield.jpg" alt="Pokemon Sword and Shield"><h3>Pokemon Sword and Shield</h3></div>
+<div class="game-card" data-name="Prey"><img src="https://example.com/prey.jpg" alt="Prey"><h3>Prey</h3></div>
+<div class="game-card" data-name="Prototype"><img src="https://example.com/prototype.jpg" alt="Prototype"><h3>Prototype</h3></div>
+<div class="game-card" data-name="Psychonauts 2"><img src="https://example.com/psychonauts-2.jpg" alt="Psychonauts 2"><h3>Psychonauts 2</h3></div>
+<div class="game-card" data-name="Resident Evil Village"><img src="https://example.com/resident-evil-village.jpg" alt="Resident Evil Village"><h3>Resident Evil Village</h3></div>
+<div class="game-card" data-name="Rocket League"><img src="https://example.com/rocket-league.jpg" alt="Rocket League"><h3>Rocket League</h3></div>
+<div class="game-card" data-name="Sekiro: Shadows Die Twice"><img src="https://example.com/sekiro-shadows-die-twice.jpg" alt="Sekiro: Shadows Die Twice"><h3>Sekiro: Shadows Die Twice</h3></div>
+<div class="game-card" data-name="Star Wars Jedi: Fallen Order"><img src="https://example.com/star-wars-jedi-fallen-order.jpg" alt="Star Wars Jedi: Fallen Order"><h3>Star Wars Jedi: Fallen Order</h3></div>
+<div class="game-card" data-name="Stardew Valley"><img src="https://example.com/stardew-valley.jpg" alt="Stardew Valley"><h3>Stardew Valley</h3></div>
+<div class="game-card" data-name="Super Mario Odyssey"><img src="https://example.com/super-mario-odyssey.jpg" alt="Super Mario Odyssey"><h3>Super Mario Odyssey</h3></div>
+<div class="game-card" data-name="Super Smash Bros. Ultimate"><img src="https://example.com/super-smash-bros-ultimate.jpg" alt="Super Smash Bros. Ultimate"><h3>Super Smash Bros. Ultimate</h3></div>
+<div class="game-card" data-name="Team Fortress 2"><img src="https://example.com/team-fortress-2.jpg" alt="Team Fortress 2"><h3>Team Fortress 2</h3></div>
+<div class="game-card" data-name="Tekken 7"><img src="https://example.com/tekken-7.jpg" alt="Tekken 7"><h3>Tekken 7</h3></div>
+<div class="game-card" data-name="The Elder Scrolls V: Skyrim"><img src="https://example.com/the-elder-scrolls-v-skyrim.jpg" alt="The Elder Scrolls V: Skyrim"><h3>The Elder Scrolls V: Skyrim</h3></div>
+<div class="game-card" data-name="The Last of Us Part II"><img src="https://example.com/the-last-of-us-part-ii.jpg" alt="The Last of Us Part II"><h3>The Last of Us Part II</h3></div>
+<div class="game-card" data-name="The Witcher 3: Wild Hunt"><img src="https://example.com/the-witcher-3.jpg" alt="The Witcher 3: Wild Hunt"><h3>The Witcher 3: Wild Hunt</h3></div>
+<div class="game-card" data-name="Tomb Raider (2013)"><img src="https://example.com/tomb-raider-2013.jpg" alt="Tomb Raider (2013)"><h3>Tomb Raider (2013)</h3></div>
+<div class="game-card" data-name="Total War: Warhammer II"><img src="https://example.com/total-war-warhammer-ii.jpg" alt="Total War: Warhammer II"><h3>Total War: Warhammer II</h3></div>
+<div class="game-card" data-name="Uncharted 4: A Thief's End"><img src="https://example.com/uncharted-4.jpg" alt="Uncharted 4: A Thief's End"><h3>Uncharted 4: A Thief's End</h3></div>
+<div class="game-card" data-name="Valhalla: Assassin's Creed Valhalla"><img src="https://example.com/assassins-creed-valhalla.jpg" alt="Valhalla: Assassin's Creed Valhalla"><h3>Valhalla: Assassin's Creed Valhalla</h3></div>
+<div class="game-card" data-name="Warframe"><img src="https://example.com/warframe.jpg" alt="Warframe"><h3>Warframe</h3></div>
+<div class="game-card" data-name="Watch Dogs: Legion"><img src="https://example.com/watch-dogs-legion.jpg" alt="Watch Dogs: Legion"><h3>Watch Dogs: Legion</h3></div>
+<div class="game-card" data-name="World of Warcraft: Shadowlands"><img src="https://example.com/wow-shadowlands.jpg" alt="World of Warcraft: Shadowlands"><h3>World of Warcraft: Shadowlands</h3></div>
+<div class="game-card" data-name="Xenoblade Chronicles 2"><img src="https://example.com/xenoblade-chronicles-2.jpg" alt="Xenoblade Chronicles 2"><h3>Xenoblade Chronicles 2</h3></div>
+<div class="game-card" data-name="Yakuza: Like a Dragon"><img src="https://example.com/yakuza-like-a-dragon.jpg" alt="Yakuza: Like a Dragon"><h3>Yakuza: Like a Dragon</h3></div>
+<div class="game-card" data-name="Zelda: Breath of the Wild"><img src="https://example.com/zelda-breath-of-the-wild.jpg" alt="Zelda: Breath of the Wild"><h3>Zelda: Breath of the Wild</h3></div>
+
+</div>
+
+<script>
+    function sortGames(order) {
+        const container = document.getElementById("game-container");
+        const games = Array.from(container.getElementsByClassName("game-card"));
+        
+        games.sort((a, b) => {
+            const nameA = a.getAttribute("data-name").toLowerCase();
+            const nameB = b.getAttribute("data-name").toLowerCase();
+            return order === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+        });
+
+        container.innerHTML = ""; // Clear the container
+        games.forEach(game => container.appendChild(game)); // Append sorted items
+    }
+</script>
+
+</body>
+</html>
