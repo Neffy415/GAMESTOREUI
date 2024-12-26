@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />	
+
+	<link rel="icon" href="lol.jpeg" type="image/icon type">
+	<title>Red Room</title>
+	<link rel="stylesheet" href="style.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Retrieve the background image URL from localStorage
+        const backgroundImage = localStorage.getItem('selectedCharacterBackground');
+
+        // If a background image URL exists, apply it to the body
+        if (backgroundImage) {
+            document.body.style.backgroundImage = backgroundImage;
+            document.body.style.backgroundSize = 'cover'; // Optional: covers the whole page
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundPosition = 'center'; // Optional: centers the background
+        }
+    });
+</script>
+<style>
+        html {
+    scroll-behavior: smooth; /* Enables smooth scrolling */
+}
+
+        /* Basic styling for the page */
+        .sidebar-container {
+            display: flex; /* Allow flexbox for layout */
+            height: 100vh; /* Full height */
+            overflow-x: hidden; /* Prevent horizontal overflow */
+	    margin-top:0px;
+            margin-left:0px;
+		color:red;
+        }
+
+        /* Sidebar container */
+        .sidebar {
+            position: absolute;
+            width: 250px;
+            height: 100vh;
+            background-color: black;
+            padding-top: 20px;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+	    
+        }
+
+        /* Sidebar open state */
+        .sidebar.active {
+            transform: translateX(0);
+		
+        }
+
+        /* Sidebar items */
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+	    color:red;
+        }
+        .sidebar ul li a {
+            color: #e3434d;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .sidebar ul li a:hover {
+            color: #ff4081;
+        }
+
+        /* Toggle button */
+        .menu-btn {
+            margin: 15px;
+	    margin-bottom:15px;
+            background-color: transparent;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-btn img {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* Background overlay for sidebar */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 120vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        /* Show overlay when sidebar is active */
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+.menu-btn {
+    position: absolute; /* Keep it on the left without affecting other items */
+    left: 10px; /* Position to the far left */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+    .game-section {
+    text-align: center; /* Center the h2 title */
+    margin: 20px 0; 
+    border: 1px solid rgb(255, 4, 4);
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
+    padding:20px 10px;
+    /* Add some spacing above and below the section */
+}
+
+.game-section h2 {
+    margin-bottom: 20px;
+    margin-top: 20px; 
+    padding:10px;
+    font-weight: bold;
+    /* Add space below the title */
+}
+
+.game-container {
+    display: flex; /* Use flexbox for the game container */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    
+    /* Center items horizontally */
+}
+
+.game-item {
+    display: flex; /* Use flexbox for each game item */
+    flex-direction: column; /* Stack image and text vertically */
+    align-items: center; /* Center items within the game item */
+    margin: 10px;
+    border-radius: 5px solid rgb(0, 255, 85); 
+    
+    /* Add some margin between items */
+}
+
+.action-item {
+    display: inline-block; /* Ensure items are displayed in a line */
+    width: 150px; /* Set a fixed width for consistency */
+    text-align: center;
+    border-radius: 5px solid red; /* Center text inside each item */
+}
+
+
+.game-item img {
+    width: 50px; /* Set a consistent width for images */
+    height: 250px;
+    border-radius: 8px;
+    border: 3px solid red;
+    border-radius: 10px;
+    
+}
+
+.game-item h3 {
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.game-item p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.game-item:hover {
+    transform: scale(1.05);
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .game-section {
+        width: 95%;
+    }
+}
+
+/* Animation keyframes */
+@keyframes zoom-in {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* Game section style */
+.game-section {
+    margin: 50px 0;
+    transition: transform 0.3s ease;
+}
+
+/* Class for zoom effect */
+.zoom-effect {
+    animation: zoom-in 0.3s ease forwards;
+}
+/* Animation keyframes for zoom effect */
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Apply the zoom effect to the sections */
+.zoom-effect {
+    animation: zoomIn 0.5s forwards;
+    opacity: 1; /* Ensure sections are visible */
+}
+.game-container img{
+     width:150px;
+}
+</style>
+
+</head>
+<body>
+		<div class="header">
+       		<center><img src="dark.jpeg" alt="GHOST STORE"></center>
+		<div class="ico">
+			<button id="button2" onclick="window.location.href='../login_page/val.html';">Log Out</button>
+			<img id="pro" src="pro.png" alt="profile" onclick="toggleDropdown()">
+        		<div id="dropdownMenu" class="dropdown-content">
+            		<a href="acountavatar.html">Account</a>
+            		
+        		</div>
+		</div>
+    	</div>
+	<div class="navbar">
+		<button class="menu-btn" onclick="toggleMenu()">
+           	   <img src="menu.png" alt="Menu">
+                </button>
+
+        	<a href="#" id="store">Store</a>
+        	<a href="../Gameplay/Gameplay.html">Gameplay</a>
+        	<a href="../Character Selection/ch.html">Character Selection</a>
+        	<a href="../Search/search.html">Search</a>
+        	<a href="../about/about.html">About Us</a>
+   	</div>
+	<center><h3>ENTER THE RED ROOM: UNLEASH YOUR PASSION!</h3></center>
+
+
+
+
+		<div class="container">
+
+		<div class="slider">
+
+			<div class="item" style="background-image: url(img1.png);">
+				<div class="content">
+				 <div class="description-wrapper">
+					<div class="name">GTA 5</div>
+					<div class="des">Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. </div>
+					<a href="../games/gta.html">
+					<button>See More</button>
+					</a>
+				 </div>
+				</div>
+			</div>
+			<div class="item" style="background-image: url(img2.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">MAFIA II</div>
+					<div class="des">Mafia II is a 2010 action-adventure game developed by 2K Czech and published by 2K.</div>
+					<a href="../games/mafia2.html">
+					<button>See More</button>
+					</a>
+				  </div>
+				</div>
+			</div>
+			<div class="item" style="background-image: url(img3.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Sleeping Dogs</div>
+					<div class="des">Sleeping Dogs is a 2012 action-adventure game developed by United Front Games and published by Square Enix.</div>
+					<a href="../games/sleeping.html">
+					<button>See More</button>
+					</a>
+				  </div>
+				</div>
+			</div>
+			<div class="item" style="background-image: url(img4.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Cyberpunk 2077</div>
+					<div class="des">Cyberpunk 2077 is a 2020 action role-playing game developed by the Polish studio CD Projekt Red, and published by CD Projekt, and based on Mike Pondsmith's Cyberpunk tabletop game series.</div>
+					<a href="../games/cyber.html">
+					<button>See More</button>
+					</a>
+				  </div>
+				</div>
+			</div>
+
+			<div class="item" style="background-image: url(img5.jpg);">
+				<div class="content">
+				  <div class="description-wrapper">
+					<div class="name">Watch Dogs</div>
+					<div class="des">Watch Dogs is an action-adventure video game franchise published by Ubisoft, and developed primarily by its Montreal and Toronto studios using the Disrupt game engine.</div>
+					<a href="../games/watch.html">
+					<button>See More</button>
+					</a>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<div class="button">
+			<button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+			<button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+		</div>
+	</div>
+<div class="sidebar-container">
+        <!-- Menu Toggle Button -->
+        <!-- Sidebar Menu -->
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li class="item"><a class="link" href="#action" target="_blank">Action</a></li>
+                <li class="item"><a class="link" href="#open" target="_blank">Open World</a></li>
+                <li class="item"><a class="link" href="#horror" target="_blank">Horror</a></li>
+                
+                <li class="item"><a class="link" href="#sports">Sports</a></li>
+                <li class="item"><a class="link" href="#competitive">Competitive</a></li>
+            </ul>
+        </div>
+
+        <!-- Overlay Background -->
+        <div class="overlay" id="overlay"></div>
+    </div>
+<script>
+function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("overlay");
+            const menuButton = document.querySelector(".menu-btn");
+
+            // Toggle active classes for sidebar, overlay, and menu button
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+            menuButton.classList.toggle("active");
+        }
+
+        // Close sidebar when clicking on the overlay
+        document.getElementById("overlay").addEventListener("click", function() {
+            toggleMenu();
+        });
+    </script>
+
+	<center><h2 class="sale">DISCOUNT SALE</h2></center>
+	<div class="list">
+		<div class="items">
+			<a href="../games/gta.html">
+				<img src="x1.png" alt="GTA%" class="poster">
+				 <div class="discount">50%</div>
+
+			</a>
+		</div>
+		
+
+		<div class="items">
+			<a href="../games/mafia2.html">
+				<img src="x2.jpg" alt="M2" class="poster">
+				<div class="discount">22%</div>
+			</a>
+		</div>
+			<div class="items">
+			<a href="../games/sleeping.html">
+				<img src="x3.jpg" alt="SD" class="poster">
+				<div class="discount">17%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="../games/cyber.html">
+				<img src="x4.jpg" alt="CP" class="poster">
+				<div class="discount">62%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="../games/watch.html">
+				<img src="x5.jpg" alt="WD" class="poster">
+				<div class="discount">88%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x6.jpg" alt="Valorent" class="poster">
+				<div class="discount">17%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x7.jpg" alt="Little Nightmares III" class="poster">
+				<div class="discount">28%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x8.jpg" alt="Sekiro" class="poster">
+				<div class="discount">14%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x9.jpg" alt="Mortury Assistant" class="poster">
+				<div class="discount">14%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x1.png" alt="GTA%" class="poster">
+				<div class="discount">50%</div>
+			</a>
+		</div>
+		<div class="items">
+			<a href="#">
+				<img src="x2.jpg" alt="M2" class="poster">
+				<div class="discount">22%</div>
+			</a>
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+<div class="container-2">
+    <!-- Top Sellers Column -->
+    <div class="column">
+        <h2>Top Sellers</h2>
+        <div class="item2">
+	<a href="../games/gta.html">
+            <img src="x1.png" alt="GTA V" class="game">
+	</a>
+            <div>
+		<a href="../games/gta.html">
+                <div class="item-title">GTA V</div>
+		</a>
+		<br>
+		<a href="../games/gta.html">
+                <div class="price">₹1,789</div>
+		</a>
+            </div>
+	
+        </div>
+	<br>
+        <div class="item2">
+	    <a href="../games/cyber.html">
+            <img src="x4.jpg" alt="Cyberpunk" class="game">
+	    </a>
+            <div>
+		<a href="../games/cyber.html">
+                <div class="item-title">Cyberpunk</div>
+		</a>
+		<br>
+		<a href="../games/cyber.html">
+                <div class="price">₹3,999 <span class="status">Trial Available</span></div>
+		</a>
+            </div>
+        </div>
+	<br>
+        <div class="item2">
+            <a href="../games/black.html">
+            <img src="x16.jpg" alt="Black Myth Wukong" class="game">
+        </a>
+            <div>
+                <a href="../games/black.html">
+                <div class="item-title">Black Myth Wukong</div>
+            </a>
+		<br>
+        <a href="../games/black.html">
+                <div class="price">₹3,999</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Most Played Column -->
+    <div class="column" id="column">
+        <h2>Most Played</h2>
+        <div class="item2">
+	<a href="../games/gta.html">
+            <img src="x1.png" alt="GTA V" class="game">
+	</a>
+            <div>
+		<a href="../games/gta.html">
+                <div class="item-title">GTA V</div>
+		</a>
+		<br>
+		<a href="../games/gta.html">
+                <div class="price">₹1,789</div>
+		</a>
+            </div>
+	
+        </div>
+	<br>
+	<div class="item2">
+        <a href="../games/ghost.html">
+             <img src="x14.jpg" alt="GOT" class="game">
+             </a>
+            <div>
+                <a href="../games/ghost.html">
+                <div class="item-title">Ghost of Tsushima</div>
+                </a>
+		<br>
+        <a href="../games/ghost.html">
+                <div class="price">₹1,789</div>
+                </a>
+            </div>
+        </div>
+	<br>
+        <div class="item2">
+	    <a href="../games/watch.html">
+            <img src="x5.jpg" alt="Watch_Dogs" class="game">
+	    </a>
+            <div>
+		<a href="../games/watch.html">
+                <div class="item-title">Watch Dogs®</div>
+		</a>
+		<br>
+		<a href="../games/watch.html">
+                <div class="price">₹899</div>
+		</a>
+            </div>
+        </div>
+        <!-- Add more items as needed -->
+    </div>
+
+    <!-- Top Upcoming Wishlisted Column -->
+    <div class="column">
+        <h2>Top Upcoming</h2>
+        <div class="item2">
+            <a href="../games/creed.html">
+            <img src="x12.jpg" alt="AC Shadows" class="game">
+            </a>
+            <div>
+                <a href="../games/creed.html">
+                <div class="item-title">Assassins Creed Shadows</div>
+                </a>
+		<br>
+        <a href="../games/creed.html">
+                <div class="upcoming">Available 12/06/24</div>
+                </a>
+            </div>
+        </div>
+	<br>
+        <div class="item2">
+            <a href="../games/yoti.html">
+            <img src="x13.jpg" alt="GOY" class="game">
+            </a>
+            <div>
+                <a href="../games/yoti.html">
+                <div class="item-title">Ghost of Yotei</div>
+                </a>
+		<br>
+        <a href="../games/yoti.html">
+                <div class="upcoming">Coming Soon</div>
+                </a>
+            </div>
+        </div>
+	<br>
+        <div class="item2">
+            <img src="x15.png" alt="Cerebrus" class="game">
+            <div>
+                <div class="item-title">Cerebrus : The Birth of Death®</div>
+		<br>
+                <div class="upcoming">Coming Soon</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="game-container">
+    <!-- Action Section -->
+   <div class="game-section" id="action">
+        <h2>ACTION GAMES</h2>
+        <div class="game-item action-item">
+            <img src="action1.jpg" alt="Action Game 1">
+            <h3>GTA V</h3>
+            <p>Description for Action Game 1.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="redr2.png" alt="Action Game 2">
+            <h3>RED DEAD </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="elden.jpg" alt="Action Game 2">
+            <h3>ELDEN RING</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <!-- Add more games as needed -->
+        <div class="game-item action-item">
+            <img src="gow.jpg" alt="Action Game 2">
+            <h3>GOD OF WAR</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+
+        <div class="game-item action-item">
+            <img src="bat.jpeg" alt="Action Game 2">
+            <h3>BATMAN
+            </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+    </div>
+
+    <div class="game-section" id="horror">
+        <h2>HORROR GAMES</h2>
+        <div class="game-item action-item">
+            <img src="amnesia.jpeg" alt="Action Game 1">
+            <h3>AMNESIA</h3>
+            <p>Description for Action Game 1.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="dead.jpg" alt="Action Game 2">
+            <h3>DEAD  DAYLIGHT </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="silent.jpg" alt="Action Game 2">
+            <h3>SILENT HILL 2</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <!-- Add more games as needed -->
+        <div class="game-item action-item">
+            <img src="phas.jpg" alt="Action Game 2">
+            <h3>PHASMOPHOBIA</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+
+        <div class="game-item action-item">
+            <img src="outlast.png" alt="Action Game 2">
+            <h3>OUTLAST
+            </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+    </div>
+
+
+    <div class="game-section" id="open">
+        <h2>OPEN WORLD GAMES</h2>
+        <div class="game-item action-item">
+            <img src="witch.jpg" alt="Action Game 1">
+            <h3>THE WITCHER</h3>
+            <p>Description for Action Game 1.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="fall.jpg" alt="Action Game 2">
+            <h3>FALLOUT 4 </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="fh.jpg" alt="Action Game 2">
+            <h3>FH5</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <!-- Add more games as needed -->
+        <div class="game-item action-item">
+            <img src="far.jpg" alt="Action Game 2">
+            <h3>FAR CRY 6</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+
+        <div class="game-item action-item">
+            <img src="days.jpeg" alt="Action Game 2">
+            <h3>DAYS GONE
+            </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+    </div>
+
+
+    <div class="game-section" id="sports">
+        <h2>SPORTS GAMES</h2>
+        <div class="game-item action-item">
+            <img src="f1.png" alt="Action Game 1">
+            <h3>F1 24</h3>
+            <p>Description for Action Game 1.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="fifa.jpg" alt="Action Game 2">
+            <h3>FIFA 19 </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="rocket.jpeg" alt="Action Game 2">
+            <h3>ROCKETLEAGUE</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <!-- Add more games as needed -->
+        <div class="game-item action-item">
+            <img src="nba.jpg" alt="Action Game 2">
+            <h3>NBA 2K24</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+
+        <div class="game-item action-item">
+            <img src="wwe.png" alt="Action Game 2">
+            <h3>WWE 2K24
+            </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+    </div>
+
+
+    <div class="game-section" id="competitive">
+        <h2>COMPETITIVE</h2>
+        <div class="game-item action-item">
+            <img src="pubg.jpeg" alt="Action Game 1">
+            <h3>PUBG</h3>
+            <p>Description for Action Game 1.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="apex.jpg" alt="Action Game 2">
+            <h3>APEX LEGENDS</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <div class="game-item action-item">
+            <img src="fort.jpg" alt="Action Game 2">
+            <h3>FORTNITE</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+        <!-- Add more games as needed -->
+        <div class="game-item action-item">
+            <img src="dota.jpg" alt="Action Game 2">
+            <h3>DOTA 2</h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+
+        <div class="game-item action-item">
+            <img src="valo.jpg" alt="Action Game 2">
+            <h3>VALORANT
+            </h3>
+            <p>Description for Action Game 2.</p>
+        </div>
+    </div>
+
+    
+</div>
+
+	<script src="app.js"></script>
+
+<script>
+
+    const menuButtons = document.querySelectorAll('a[href^="#"]');
+    menuButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const actionLink = document.querySelector('a[href="#action"]');
+    const actionSection = document.getElementById('action');
+
+    actionLink.addEventListener('click', function() {
+        // Add zoom effect class
+        actionSection.classList.add('zoom-effect');
+
+        // Scroll to the section
+        setTimeout(() => {
+            actionSection.scrollIntoView({ behavior: 'smooth' });
+        }, 300); // Adjust timeout to match animation duration
+    });
+});
+
+</script>
+
+
+
+</script>
+</body>
+</html>
+
+

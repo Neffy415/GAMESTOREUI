@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Information</title>
+    <link rel="stylesheet" href="account.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Account Information</h1>
+        <div class="account-info">
+            <p><strong>Username:</strong> <span id="username"></span></p>
+            <p><strong>Game Codes:</strong></p>
+            <ul id="gameCodesList"></ul>
+        </div>
+        <button id="logoutBtn">Log Out</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const username = localStorage.getItem("loggedInUser");
+
+            const userCodes = JSON.parse(localStorage.getItem("userCodes")) || {};
+            const gameCodes = userCodes[username] || [];
+
+            document.getElementById("username").textContent = username || "N/A";
+
+            const gameCodesList = document.getElementById("gameCodesList");
+            gameCodes.forEach(code => {
+                const listItem = document.createElement("li");
+                listItem.textContent = code;
+                gameCodesList.appendChild(listItem);
+            });
+
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.removeItem("loggedInUser");
+                window.location.href = "../login_page/val.html";
+            });
+        });
+    </script>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container */
+        .container {
+            background-color: black;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 500px;
+            max-height: 80vh; /* Set maximum height for scrollable effect */
+            overflow-y: auto; /* Enable vertical scrolling */
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            color: #e3434d;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .account-info p {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        strong {
+            color: #e3434d;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #3a3a4d;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        ul li:hover {
+            background-color: #4a4a5f;
+        }
+
+        #logoutBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e3434d;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        #logoutBtn:hover {
+            background-color: #d13242;
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</body>
+</html>
